@@ -12,7 +12,7 @@ $products = [
 ];
 ?>
 
-<section class="max-w-7xl mx-auto">
+<section class="max-w-7xl mx-auto" id="products-section">
     <div class="flex flex-col md:flex-col justify-between px-8 py-8 md:px-32 rounded-2xl">
         <div class="flex flex-col justify-between items-center gap-8 max-w-[600px] mx-auto text-center py-12">
             <h1 class="text-5xl font-bold text-black">

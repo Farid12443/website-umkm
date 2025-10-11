@@ -1,4 +1,4 @@
-<section class="max-w-7xl mx-auto">
+<section class="max-w-7xl mx-auto" id="home-section">
     <div class="flex flex-col mt-12 md:flex-row md:mt-8 items-center justify-between px-8 pt-18 md:pb-0 md:px-32 rounded-2xl">
         <!-- Teks -->
         <div class="md:w-1/2 space-y-4 flex flex-col justify-between">

@@ -1,4 +1,4 @@
-<section class="max-w-7xl mx-auto bg-yellow-800 text-white overflow-hidden py-8">
+<section class="max-w-7xl mx-auto bg-yellow-800 text-white overflow-hidden py-8" id="suports-section">
    <div id="marquee-wrapper" class="overflow-hidden">
       <div id="marquee" class="flex items-center whitespace-nowrap will-change-transform">
          <img src="images/pertanian.png" alt="PERTANIAN" class="h-16 md:h-20 object-contain" />
