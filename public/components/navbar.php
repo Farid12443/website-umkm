@@ -71,5 +71,5 @@
     </div>
 
     <!-- Overlay Backdrop -->
-    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden"></div>
+    <div id="overlay" class="fixed inset-0 z-30 hidden md:hidden"></div>
 </section>

@@ -1,4 +1,3 @@
-// JavaScript untuk toggle sidebar mobile (slide from left)
 document.addEventListener('DOMContentLoaded', function () {
     const menuBtn = document.getElementById('menu-btn');
     const closeMenuBtn = document.getElementById('close-menu-btn');
@@ -14,38 +13,27 @@ document.addEventListener('DOMContentLoaded', function () {
         overlay.classList.remove('hidden');
         menuIcon.classList.add('hidden');
         closeIcon.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; // Cegah scroll body
+        document.body.style.overflow = 'hidden';
     }
-
-    // Fungsi untuk tutup menu
+    // Fungsi untuk tutup menu 
     function closeMenu() {
         mobileMenu.classList.remove('translate-x-0');
         mobileMenu.classList.add('-translate-x-full');
         overlay.classList.add('hidden');
         menuIcon.classList.remove('hidden');
         closeIcon.classList.add('hidden');
-        document.body.style.overflow = 'auto'; // Kembalikan scroll body
+        document.body.style.overflow = 'auto';
     }
-
-    // Event listener untuk tombol hamburger
     menuBtn.addEventListener('click', openMenu);
 
-    closeMenuBtn.addEventListener('click', closeMenu);
-
-    // Event listener untuk overlay (tutup saat klik luar)
     overlay.addEventListener('click', closeMenu);
-
     const mobileLinks = mobileMenu.querySelectorAll('a');
     mobileLinks.forEach(link => {
         link.addEventListener('click', function () {
             closeMenu();
         });
     });
-
-    // Tutup menu saat resize ke desktop (opsional)
     window.addEventListener('resize', function () {
-        if (window.innerWidth >= 768) { // md breakpoint
-            closeMenu();
-        }
+        if (window.innerWidth >= 768) { closeMenu(); }
     });
 });
