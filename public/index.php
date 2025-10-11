@@ -27,7 +27,7 @@
   <?php include "components/coba.php"; ?>
   <?php include "components/footer.php"; ?>
 
-  <script src="js/script.js"></script>
+  <!-- <script src="js/script.js"></script> -->
 </body>
 
 </html>
