@@ -1,3 +1,18 @@
+<?php
+include "../config/connection.php";
+session_start();
+
+// pastikan user sudah login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$id = $_SESSION['user_id'];
+$result = mysqli_query($conn, "SELECT * FROM user WHERE id_user='$id'");
+$data = mysqli_fetch_assoc($result);
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -29,7 +44,7 @@
             }
         }
 
-         .no-scrollbar::-webkit-scrollbar {
+        .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
 
@@ -76,17 +91,36 @@
 
                     <!-- Profil -->
                     <div class="flex items-center space-x-5 mb-8 bg-gray-50 p-5 rounded-xl">
-                        <img src="https://via.placeholder.com/90" alt="Profile Picture"
-                            class="w-20 h-20 rounded-full object-cover ring-2 ring-green-300">
+                        <img src="../uploads/<?php echo $data['foto'] ?: 'default.png'; ?>"
+                            alt="Foto Profil" class="w-20 h-20 rounded-full object-cover ring-2 ring-green-300">
                         <div>
-                            <h4 class="text-lg font-semibold text-gray-900">Muhammad Farid Islamudin</h4>
-                            <p class="text-gray-500 text-sm">faridislamudin@example.com</p>
-                            <button class="text-green-600 font-medium mt-1 hover:underline flex items-center space-x-1"
-                                onclick="changeProfilePhoto()">
+                            <h4 class="text-lg font-semibold text-gray-900">
+                                <?php echo htmlspecialchars($data['nama']); ?>
+                            </h4>
+                            <p class="text-gray-500 text-sm"><?php echo htmlspecialchars($data['email']); ?></p>
+                            <button class="text-green-600 font-medium mt-1 hover:underline flex items-center space-x-1" onclick="changeProfilePhoto()">
                                 <i class="fa-solid fa-camera"></i><span>Ubah Foto</span>
                             </button>
+
                         </div>
                     </div>
+
+                    <!-- Modal Ubah Foto -->
+                    <div id="modalFoto" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+                        <div class="bg-white p-6 rounded-xl shadow-xl w-96">
+                            <h3 class="text-lg font-semibold mb-4 text-gray-800">Ubah Foto Profil</h3>
+                            <form action="../actions/update_foto.php" method="POST" enctype="multipart/form-data" class="space-y-4">
+                                <input type="file" name="foto" accept="image/*"
+                                    class="w-full border border-gray-300 rounded-lg p-2">
+                                <button type="submit"
+                                    class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium">
+                                    Simpan
+                                </button>
+                            </form>
+                            <button onclick="closeModal()" class="mt-3 text-gray-500 hover:underline w-full text-center">Batal</button>
+                        </div>
+                    </div>
+
 
                     <!-- Ganti Password -->
                     <div class="space-y-4 mb-10">
@@ -182,6 +216,16 @@
 
             btn.classList.remove("bg-white", "text-gray-700", "border", "border-gray-300");
             btn.classList.add("bg-green-600", "text-white", "shadow");
+        }
+
+        function changeProfilePhoto() {
+            document.getElementById("modalFoto").classList.remove("hidden");
+            document.getElementById("modalFoto").classList.add("flex");
+        }
+
+        function closeModal() {
+            document.getElementById("modalFoto").classList.add("hidden");
+            document.getElementById("modalFoto").classList.remove("flex");
         }
     </script>
 

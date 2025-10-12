@@ -1,20 +1,27 @@
 <?php
 include "../config/connection.php";
+session_start(); 
 
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Cek apakah email terdaftar
+    // cek email
     $query = "SELECT * FROM user WHERE email = '$email'";
     $result = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
 
-        // Verifikasi password
+        // cek password
         if (password_verify($password, $user['password'])) {
-            echo "<script>alert('Login berhasil! Selamat datang, " . $user['nama'] . "'); window.location='index.php';</script>";
+
+            
+            $_SESSION['user_id'] = $user['id_user']; 
+            $_SESSION['nama'] = $user['nama'];
+            $_SESSION['email'] = $user['email'];
+
+            echo "<script>alert('Login berhasil! Selamat datang, " . $user['nama'] . "'); window.location='profil.php';</script>";
         } else {
             echo "<script>alert('Kata sandi salah!');</script>";
         }
@@ -23,6 +30,7 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 

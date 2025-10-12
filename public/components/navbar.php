@@ -28,7 +28,7 @@
                 <!-- Profile Dropdown (simple hover menu) -->
                 <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                     <ul class="py-2">
-                        <li><a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors">Profil</a></li>
+                        <li><a href="../public/profil.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors">Profil</a></li>
                         <li><a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors">Pengaturan</a></li>
                         <li><a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors">Logout</a></li>
                     </ul>
