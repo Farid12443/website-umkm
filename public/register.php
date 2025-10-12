@@ -51,7 +51,7 @@ if (isset($_POST['submit'])) {
 
 </head>
 
-<body>
+<body class="font-[roboto]">
     <section class="max-w-7xl mx-auto">
         <div class="flex flex-col-reverse lg:flex-row justify-between items-center px-4 py-8 sm:px-8 md:px-16 lg:px-24 rounded-2xl">
 
