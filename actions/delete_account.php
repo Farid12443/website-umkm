@@ -16,7 +16,7 @@ if ($getFoto && mysqli_num_rows($getFoto) > 0) {
     $data = mysqli_fetch_assoc($getFoto);
     $foto = $data['foto'];
 
-    if (!empty($foto) && $foto !== 'default.png') {
+    if (!empty($foto) && $foto !== 'default.jpg') {
         $path = "../uploads/" . $foto;
         if (file_exists($path)) {
             unlink($path);
