@@ -21,7 +21,7 @@ $row2 = array_slice($testimonials, ceil(count($testimonials) / 2));
 </head>
 
 <body class="font-sans bg-gray-100 flex justify-center items-center min-h-screen">
-  <div class="max-w-7xl mx-auto overflow-hidden">
+  <div class="max-w-7xl mx-auto overflow-hidden" id="testimonial">
     <div class="flex flex-col md:flex-col justify-between px-8 py-8 md:px-32 rounded-2xl">
 
       <!-- Judul -->
