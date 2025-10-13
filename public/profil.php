@@ -62,6 +62,12 @@ $data = mysqli_fetch_assoc($result);
 
             <!-- Sidebar -->
             <aside class="w-full lg:w-1/4 bg-gray-50 border-r border-gray-200 p-6">
+                <button
+                   onclick="window.location.href='index.php'"
+                    class="mb-6 flex items-center space-x-2 text-gray-700 hover:text-green-600 transition font-medium">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Kembali</span>
+                </button>
                 <h2 class="text-2xl font-bold mb-6 text-gray-800">Pengaturan Akun</h2>
                 <ul class="space-y-3">
                     <li>
@@ -365,7 +371,7 @@ $data = mysqli_fetch_assoc($result);
             document.querySelectorAll("main > div").forEach(div => div.classList.add("hidden"));
             document.getElementById(sectionId).classList.remove("hidden");
 
-            document.querySelectorAll("aside button").forEach(b => {
+            document.querySelectorAll("aside ul button").forEach(b => {
                 b.classList.remove("bg-green-600", "text-white", "shadow");
                 b.classList.add("bg-white", "text-gray-700", "border", "border-gray-300");
             });
