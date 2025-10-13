@@ -85,7 +85,7 @@ $data = mysqli_fetch_assoc($result);
             <main id="content-area" class="flex-1 p-8 bg-white min-h-screen">
                 <div id="account-info" class="fade-in">
                     <h3 class="text-2xl font-bold mb-4 text-gray-800">Account Info</h3>
-                    <p class="text-gray-600 mb-6">Kelola dan perbarui detail akun, foto profil, dan kata sandi Anda.</p>
+                    <p class="text-gray-600 mb-6">Lihat dan lihat riwayat transaksi anda.</p>
 
                     <!-- Profil -->
                     <div class="flex items-center space-x-5 mb-8 bg-gray-50 p-5 rounded-xl">
@@ -95,8 +95,11 @@ $data = mysqli_fetch_assoc($result);
                             <h4 class="text-lg font-semibold text-gray-900">
                                 <?php echo htmlspecialchars($data['nama']); ?>
                             </h4>
-                            <p class="text-gray-500 text-sm mb-2"><?php echo htmlspecialchars($data['email']); ?></p>
-                            <p class="text-gray-400 text-xs">ID Akun: <?php echo htmlspecialchars($data['id_user'] ?? 'N/A'); ?></p>
+                            <div class="flex-col gap-10">
+                                <p class="text-gray-400 text-xs">ID Akun : <?php echo htmlspecialchars($data['id_user'] ?? 'N/A'); ?></p>
+                                <p class="text-gray-500 text-sm">Email : <?php echo htmlspecialchars($data['email']); ?></p>
+                                <p class="text-gray-500 text-sm">Alamat : <?php echo htmlspecialchars($data['alamat']); ?></p>
+                            </div>
                         </div>
                     </div>
 
@@ -136,7 +139,7 @@ $data = mysqli_fetch_assoc($result);
                     <div>
                         <!-- Header Section -->
                         <div class="mb-8">
-                            <h3 class="text-3xl font-bold mb-2 text-gray-900">Pengaturan Akun Profesional</h3>
+                            <h3 class="text-2xl font-bold mb-4 text-gray-800">Pengaturan Akun</h3>
                             <p class="text-gray-600">Kelola informasi profil, keamanan, dan preferensi akun Anda dengan aman dan efisien.</p>
                         </div>
 
@@ -159,8 +162,11 @@ $data = mysqli_fetch_assoc($result);
                                     <h5 class="text-lg font-semibold text-gray-900 truncate">
                                         <?php echo htmlspecialchars($data['nama']); ?>
                                     </h5>
-                                    <p class="text-gray-500 text-sm mb-2"><?php echo htmlspecialchars($data['email']); ?></p>
-                                    <p class="text-gray-400 text-xs">ID Akun: <?php echo htmlspecialchars($data['id_user'] ?? 'N/A'); ?></p>
+                                    <div class="flex-col gap-10">
+                                        <p class="text-gray-400 text-xs">ID Akun : <?php echo htmlspecialchars($data['id_user'] ?? 'N/A'); ?></p>
+                                        <p class="text-gray-500 text-sm">Email : <?php echo htmlspecialchars($data['email']); ?></p>
+                                        <p class="text-gray-500 text-sm">Alamat : <?php echo htmlspecialchars($data['alamat']); ?></p>
+                                    </div>
                                 </div>
                             </div>
 
@@ -221,6 +227,19 @@ $data = mysqli_fetch_assoc($result);
                                         class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition" placeholder="Masukkan alamat email baru">
                                 </div>
                                 <p class="mt-1 text-sm text-gray-500">Email akan diverifikasi melalui kode OTP.</p>
+                            </div>
+
+                            <!-- Alamat Section -->
+                            <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
+                                <h4 class="text-xl font-semibold mb-4 text-gray-900 flex items-center space-x-2">
+                                    <i class="fa-solid fa-map-location-dot text-green-600"></i>
+                                    <span>Alamat</span>
+                                </h4>
+                                <div class="relative">
+                                    <i class="fa-solid fa-map-location-dot absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                    <input type="text" name="alamat" id="alamatBaru" value="<?php echo htmlspecialchars($data['alamat'] ?? ''); ?>" required
+                                        class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition" placeholder="Masukkan alamat email baru">
+                                </div>
                             </div>
 
                             <!-- Password Section -->
