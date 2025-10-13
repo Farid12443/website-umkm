@@ -54,10 +54,7 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
         </div>
 
         <!-- Produk List -->
-        <div class="flex overflow-x-auto space-x-6 snap-x snap-mandatory scrollbar-hide 
-        sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-8 sm:space-x-0
-        py-8
-    ">
+        <div class="flex overflow-x-auto space-x-6 snap-x snap-mandatory scrollbar-hide sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-8 sm:space-x-0 py-8">
             <?php foreach ($products as $item) { ?>
                 <div class="min-w-[230px] sm:min-w-0 snap-center rounded-xl bg-white shadow-md hover:shadow-xl transform transition-all duration-300 ease-in-out hover:-translate-y-1">
                     <img src="../uploads/<?php echo $item['foto'] ?>"
