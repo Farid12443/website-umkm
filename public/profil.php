@@ -305,6 +305,23 @@ $data = mysqli_fetch_assoc($result);
                             <p class="mt-3 text-sm text-gray-500">Hapus akun akan menghapus semua data secara permanen. Pastikan Anda telah membackup informasi penting.</p>
                         </div>
 
+                        <!-- Modal Konfirmasi logout Akun -->
+                        <div id="modalLogout" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 p-4 hidden ">
+                            <div class="bg-white rounded-xl shadow-2xl w-full max-w-md">
+                                <div class="p-6">
+                                    <h4 class="text-lg font-semibold mb-4 text-red-600 flex items-center space-x-2">
+                                        <i class="fa-solid fa-exclamation-triangle"></i>
+                                        <span>Konfirmasi Logout Akun</span>
+                                    </h4>
+                                    <p class="text-gray-700 mb-6">Apakah Anda yakin ingin logout dari akun ini?</p>
+                                    <div class="flex space-x-3">
+                                        <button type="button" onclick="logoutAkun()" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2.5 rounded-lg font-medium transition">Ya, Logout</button>
+                                        <button type="button" onclick="closeLogoutModal()" class="flex-1 border border-gray-300 hover:bg-gray-50 text-gray-700 py-2.5 rounded-lg font-medium transition">Batal</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Modal Konfirmasi Hapus Akun -->
                         <div id="modalHapus" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 p-4 hidden ">
                             <div class="bg-white rounded-xl shadow-2xl w-full max-w-md">
@@ -365,6 +382,41 @@ $data = mysqli_fetch_assoc($result);
         function closeModal() {
             document.getElementById("modalFoto").classList.add("hidden");
             document.getElementById("modalFoto").classList.remove("flex");
+        }
+
+        // logout
+
+        function logout() {
+            document.getElementById('modalLogout').classList.remove('hidden');
+            document.getElementById('modalLogout').classList.add('flex');
+        }
+
+        function closeLogoutModal() {
+            // tutup modal konfirmasi hapus
+            document.getElementById('modalLogout').classList.add('hidden');
+            document.getElementById('modalLogout').classList.remove('flex');
+        }
+
+        function logoutAkun() {
+            // arahkan ke file aksi hapus akun
+            window.location.href = "../actions/logout.php";
+        }
+
+        function confirmDeleteAccount() {
+            // buka modal konfirmasi hapus
+            document.getElementById('modalHapus').classList.remove('hidden');
+            document.getElementById('modalHapus').classList.add('flex');
+        }
+
+        function closeDeleteModal() {
+            // tutup modal konfirmasi hapus
+            document.getElementById('modalHapus').classList.add('hidden');
+            document.getElementById('modalHapus').classList.remove('flex');
+        }
+
+        function hapusAkun() {
+            // arahkan ke file aksi hapus akun
+            window.location.href = "../actions/delete_account.php";
         }
     </script>
 
