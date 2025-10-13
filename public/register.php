@@ -12,7 +12,19 @@ if (isset($_POST['submit'])) {
               VALUES ('$nama', '$email', '$password', '$alamat', '$no_hp')";
 
     if (mysqli_query($conn, $query)) {
-        echo "<script>alert('Registrasi berhasil!'); window.location='index.php';</script>";
+        // ambil user yang baru daftar
+        $user_id = mysqli_insert_id($conn);
+
+        // session
+        session_start();
+        $_SESSION['user_id'] = $user_id;
+        $_SESSION['nama'] = $nama;
+        $_SESSION['email'] = $email;
+
+        echo "<script>
+        alert('Registrasi berhasil! Selamat datang, $nama');
+        window.location='index.php';
+    </script>";
     } else {
         echo "Error: " . mysqli_error($conn);
     }
