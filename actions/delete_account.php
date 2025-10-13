@@ -10,15 +10,20 @@ if (!isset($_SESSION['user_id'])) {
 
 $id_user = $_SESSION['user_id'];
 
-// hapus foto (kalau ada)
+// hapus foto
 $getFoto = mysqli_query($conn, "SELECT foto FROM user WHERE id_user = '$id_user'");
 if ($getFoto && mysqli_num_rows($getFoto) > 0) {
     $data = mysqli_fetch_assoc($getFoto);
-    if (!empty($data['foto'])) {
-        $path = "../uploads/" . $data['foto'];
-        if (file_exists($path)) unlink($path);
+    $foto = $data['foto'];
+
+    if (!empty($foto) && $foto !== 'default.png') {
+        $path = "../uploads/" . $foto;
+        if (file_exists($path)) {
+            unlink($path);
+        }
     }
 }
+
 
 // hapus data user
 $delete = mysqli_query($conn, "DELETE FROM user WHERE id_user = '$id_user'");
