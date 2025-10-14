@@ -1,48 +1,85 @@
-<?php
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonial Petani</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- SwiperJS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <style>
+    .bg-overlay {
+      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                  url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1500&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
 
-$testimonials = [
-  ['name' => 'lorem', 'addres' => 'lorem', 'star' => '⭐⭐⭐⭐⭐', 'description' => 'loreme'],
-  ['name' => 'lorem', 'addres' => 'lorem', 'star' => '⭐⭐⭐⭐⭐', 'description' => 'loreme'],
-  ['name' => 'lorem', 'addres' => 'lorem', 'star' => '⭐⭐⭐⭐⭐', 'description' => 'loreme'],
-  ['name' => 'lorem', 'addres' => 'lorem', 'star' => '⭐⭐⭐⭐⭐', 'description' => 'loreme'],
-  ['name' => 'lorem', 'addres' => 'lorem', 'star' => '⭐⭐⭐⭐⭐', 'description' => 'loreme']
-];
+  <!-- Testimonial Section -->
+  <section class="bg-overlay flex items-center justify-center min-h-screen relative">
+    <div class="swiper w-full max-w-4xl">
+      <div class="swiper-wrapper">
 
-?>
-
-
-<section class="max-w-7xl mx-auto px-8 py-12 md:px-32" id="testimonial">
-
-  <!-- Judul -->
-  <div class="flex flex-col gap-6 max-w-2xl mb-8">
-    <h1 class="text-4xl md:text-5xl font-bold text-black">Testimonial</h1>
-    <p class="text-lg md:text-xl font-light text-gray-700">
-      Beras premium pilihan, dipanen segar dan diolah higienis untuk keluarga Anda.
-    </p>
-  </div>
-
-  <div class="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
-
-    <?php foreach ($testimonials as $item) { ?>
-      <!-- Card 1 -->
-      <div class="flex-shrink-0 w-[500px] flex items-center border rounded-2xl p-3 shadow-sm hover:shadow-md transition bg-white">
-        <img src="https://asset.kompas.com/crops/uWy9sjOHu_N21k29z9PxyS63OPg=/0x0:1000x667/1200x800/data/photo/2022/05/04/6271c5c7d49c9.jpg"
-          alt="Foto Udin"
-          class="w-20 h-20 rounded-full object-cover mr-6">
-        <div class="flex-1">
-          <div class="flex justify-between items-start mb-2">
-            <div>
-              <span class="block font-semibold text-gray-900">Udin</span>
-              <span class="text-sm text-gray-500">Suruh, Semarang</span>
+        <!-- Slide 1 -->
+        <div class="swiper-slide flex flex-col md:flex-row items-center justify-center gap-8">
+          <img src="https://i.ibb.co/T8tF6ZW/farmer-woman.png" alt="Petani" class="hidden md:block w-56 object-contain">
+          
+          <div class="bg-green-600 bg-opacity-80 text-white p-10 rounded-lg text-center max-w-lg">
+            <div class="flex justify-center mb-4">
+              <img src="https://i.ibb.co/b6RwT2X/client1.jpg" class="w-20 h-20 rounded-full border-4 border-white" alt="Client">
             </div>
-            <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+            <p class="text-lg italic mb-4">
+              “Dolores sed duo clita justo dolor et stet lorem kasd dolore lorem ipsum. At lorem lorem magna ut et, nonumy labore diam erat.”
+            </p>
+            <h3 class="font-bold text-xl">Client Name</h3>
           </div>
-          <p class="text-gray-700 text-sm md:text-base">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse, laudantium.
-          </p>
+
+          <img src="https://i.ibb.co/z7NZywx/farmer-man.png" alt="Petani" class="hidden md:block w-56 object-contain">
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide flex flex-col md:flex-row items-center justify-center gap-8">
+          <img src="https://i.ibb.co/T8tF6ZW/farmer-woman.png" alt="Petani" class="hidden md:block w-56 object-contain">
+          
+          <div class="bg-green-600 bg-opacity-80 text-white p-10 rounded-lg text-center max-w-lg">
+            <div class="flex justify-center mb-4">
+              <img src="https://i.ibb.co/b6RwT2X/client2.jpg" class="w-20 h-20 rounded-full border-4 border-white" alt="Client">
+            </div>
+            <p class="text-lg italic mb-4">
+              “Erat dolor rebum sit ipsum. Lorem magna ut et, nonumy labore diam erat lorem kasd dolore lorem ipsum.”
+            </p>
+            <h3 class="font-bold text-xl">Client Dua</h3>
+          </div>
+
+          <img src="https://i.ibb.co/z7NZywx/farmer-man.png" alt="Petani" class="hidden md:block w-56 object-contain">
         </div>
 
       </div>
-    <?php } ?>
-  </div>
-</section>
+
+      <!-- Navigasi -->
+      <div class="swiper-button-next text-white"></div>
+      <div class="swiper-button-prev text-white"></div>
+    </div>
+
+    <!-- Tombol ke atas -->
+    <a href="#" class="fixed bottom-6 right-6 bg-orange-500 text-white p-3 rounded-full shadow-lg hover:bg-orange-600 transition">
+      ↑
+    </a>
+  </section>
+
+  <!-- SwiperJS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script>
+</body>
+</html>
