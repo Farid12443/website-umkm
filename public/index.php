@@ -24,7 +24,7 @@
   <?php include "components/partners.php"; ?>
   <?php include "components/products.php"; ?>
   <?php include "components/about.php"; ?>
-  <?php include "components/coba.php"; ?>
+  <?php include "components/testimonial.php"; ?>
   <?php include "components/footer.php"; ?>
 
   <!-- <script src="js/script.js"></script> -->

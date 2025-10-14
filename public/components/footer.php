@@ -1,5 +1,5 @@
 <section class="max-w-7xl mx-auto bg-amber-800 text-white">
-  <div class="flex flex-col mt-12  items-center justify-between px-8 py-8 md:px-32 rounded-2xl gap-8 md:gap-0">
+  <div class="flex flex-col items-center justify-between px-8 py-8 md:px-32 rounded-2xl gap-8 md:gap-0">
     <!-- Main content with border bottom -->
     <div class="flex flex-col md:flex-row w-full border-b border-amber-600 pb-6 md:pb-0 md:pr-8">
 
