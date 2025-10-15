@@ -20,11 +20,26 @@
 
 <body class="bg-[#f9f9f9] font-[roboto]">
     <!-- Container utama -->
-    <section class="max-w-7xl mx-auto ">
+    <section class="max-w-7xl mx-auto">
         <div class="px-8 py-8 md:px-32">
-            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4 sm:mb-6 md:mb-8">Keranjang Belanja</h1>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4 sm:mb-6 md:mb-8">
+                Keranjang Belanja
+            </h1>
 
-            <div class="grid grid-cols-1 gap-4 sm:gap-6 md:gap-8 lg:grid-cols-3">
+            <!-- Jika keranjang kosong -->
+            <div id="empty-cart" class="hidden flex-col items-center justify-center text-center py-1 rounded-xl">
+                <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="Empty Cart"
+                    class="w-24 sm:w-32 mb-4 opacity-50 mx-auto">
+                <h2 class="text-lg sm:text-xl font-semibold text-gray-700 mb-2">Keranjangmu masih kosong</h2>
+                <p class="text-gray-500 mb-6 text-sm sm:text-base">Yuk, tambahkan produk favoritmu ke keranjang sekarang!</p>
+                <a href="produk.php"
+                    class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition">
+                    Belanja Sekarang
+                </a>
+            </div>
+
+            <!-- Jika ada produk -->
+            <div id="cart-content" class="grid grid-cols-1 gap-4 sm:gap-6 md:gap-8 lg:grid-cols-3">
                 <!-- Kiri: daftar produk -->
                 <div class="lg:col-span-2 space-y-4 sm:space-y-5 md:space-y-6">
                     <!-- Produk item -->
@@ -47,29 +62,8 @@
                         </div>
                     </div>
 
-                    <!-- Produk item -->
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white rounded-xl shadow-sm p-4 sm:p-5 hover:shadow-md transition">
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                            <img src="https://via.placeholder.com/90" class="w-16 sm:w-20 h-16 sm:h-20 rounded-lg object-cover" alt="produk">
-                            <div>
-                                <h2 class="font-semibold text-gray-800 text-base sm:text-lg">Beras Organik 5kg</h2>
-                                <p class="text-sm text-gray-500">Varian: Putih</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 mt-2 sm:mt-0">
-                            <div class="flex items-center border rounded-lg overflow-hidden w-full sm:w-auto">
-                                <button class="px-2 sm:px-3 py-1 text-gray-600 hover:bg-gray-100" onclick="kurangi(this)">−</button>
-                                <span class="px-3 sm:px-4">2</span>
-                                <button class="px-2 sm:px-3 py-1 text-gray-600 hover:bg-gray-100" onclick="tambah(this)">+</button>
-                            </div>
-                            <p class="font-semibold text-gray-800 text-base sm:text-lg">Rp 120.000</p>
-                            <button class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                    </div>
-
                     <!-- Tombol bawah -->
                     <div class="flex flex-col sm:flex-row justify-between space-y-2 sm:space-y-0 sm:space-x-4 mt-4 sm:mt-6 md:mt-8 md:justify-end">
-
                         <button class="w-full sm:w-auto px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white font-semibold transition">
                             Batalkan Pesanan
                         </button>
@@ -108,6 +102,16 @@
             </div>
         </div>
     </section>
+
+    <script>
+        // Contoh logika JS untuk simulasi keranjang kosong
+        const cartHasItems = true; // ubah ke false untuk test tampilan kosong
+        if (!cartHasItems) {
+            document.getElementById("cart-content").classList.add("hidden");
+            document.getElementById("empty-cart").classList.remove("hidden");
+        }
+    </script>
+
 
     <script>
         function tambah(btn) {
