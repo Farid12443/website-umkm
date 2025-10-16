@@ -83,10 +83,14 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                 </span>
                             </div>
                         </div>
-
-                        <button class="bg-green-500 hover:bg-green-600 text-white p-2 rounded-lg transition mt-3">
-                            <i class="fa-solid fa-cart-plus"></i> Tambah
-                        </button>
+                        <form action="../actions/tambah_keranjang.php" method="POST" class="flex">
+                            <form action="../actions/tambah_keranjang.php" method="POST" class="flex">
+                                <input type="hidden" name="id_produk" value="<?php echo $item['id_produk']; ?>">
+                                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white p-2 rounded-lg transition mt-3">
+                                    <i class="fa-solid fa-cart-plus"></i> Tambah
+                                </button>
+                            </form>
+                        </form>
                     </div>
                 </div>
             <?php } ?>
