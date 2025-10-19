@@ -1,3 +1,20 @@
+<?php
+session_start();
+include "../config/connection.php";
+
+$id = $_SESSION['user_id'];
+$resultUser = mysqli_query($conn, "SELECT * FROM user WHERE id_user='$id'");
+$user = mysqli_fetch_assoc($resultUser);
+
+$foto = !empty($user['foto']) ? $user['foto'] : 'default.jpg';
+
+// Hitung jumlah item di keranjang
+$resultCart = mysqli_query($conn, "SELECT SUM(jumlah) AS total FROM keranjang WHERE id_user='$id'");
+$cart = mysqli_fetch_assoc($resultCart);
+$total_item = $cart['total'] ?? 0;
+?>
+
+
 <section class="max-w-7xl mx-auto">
     <!-- Navbar -->
     <nav class="fixed top-0 left-0 w-full flex items-center justify-between px-8 py-4 md:px-32 bg-white/80 backdrop-blur-md shadow-lg z-50 border-b border-gray-100">
@@ -17,47 +34,50 @@
         <!-- Desktop Actions -->
         <div class="hidden lg:flex items-center justify-center space-x-6">
             <span class="cursor-pointer hover:text-orange-500 transition-colors duration-200 relative">
-                <a href="../public/cart.php"> <i class="fa-solid fa-cart-shopping text-gray-700 text-xl"></i> </a>
-                <span class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                <a href="../public/cart.php">
+                    <i class="fa-solid fa-cart-shopping text-gray-700 text-xl"></i>
+                </a>
+                <span class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    <?= $total_item ?>
+                </span>
             </span>
+
+            <button class="bg-gradient-to-r from-green-400 to-green-500 text-white font-semibold py-2 px-6 rounded-full hover:from-green-500 hover:to-green-600 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105">Kontak</button>
+
             <!-- Profile Icon -->
             <div class="relative group">
-                <span class="cursor-pointer hover:text-orange-500 transition-colors duration-200">
-                    <i class="fa-solid fa-user text-gray-700 text-xl"></i>
-                </span>
-                <!-- Profile Dropdown (simple hover menu) -->
-                <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
-                    <ul class="py-2">
-                        <li><a href="../public/profil.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors">Profil</a></li>
-                        <li><a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors">Pengaturan</a></li>
-                        <li><a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors">Logout</a></li>
-                    </ul>
-                </div>
+                <a href="../public/profil.php">
+                    <span class="cursor-pointer hover:opacity-80 transition-all duration-200">
+                        <img src="../uploads/<?php echo $foto; ?>"
+                            alt="Foto Profil"
+                            class="w-10 h-10 rounded-full object-cover border border-gray-300 shadow-sm">
+                    </span>
+
+                </a>
             </div>
-            <button class="bg-gradient-to-r from-green-400 to-green-500 text-white font-semibold py-2 px-6 rounded-full hover:from-green-500 hover:to-green-600 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105">Kontak</button>
         </div>
 
         <!-- Mobile Actions -->
         <div class="flex items-center space-x-4 md:hidden">
             <span class="cursor-pointer hover:text-orange-500 transition-colors duration-200 relative">
-                <i class="fa-solid fa-cart-shopping text-gray-700 text-xl"></i>
-                <!-- Optional: Cart badge -->
-                <span class="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">0</span>
+                <a href="../public/cart.php">
+                    <i class="fa-solid fa-cart-shopping text-gray-700 text-xl"></i>
+                </a>
+                <span class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    <?= $total_item ?>
+                </span>
             </span>
             <!-- Mobile Profile Icon -->
             <!-- Profile Icon -->
             <div class="relative group">
-                <span class="cursor-pointer hover:text-orange-500 transition-colors duration-200">
-                    <i class="fa-solid fa-user text-gray-700 text-xl"></i>
-                </span>
-                <!-- Profile Dropdown (simple hover menu) -->
-                <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
-                    <ul class="py-2">
-                        <li><a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors">Profil</a></li>
-                        <li><a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors">Pengaturan</a></li>
-                        <li><a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors">Logout</a></li>
-                    </ul>
-                </div>
+                <a href="../public/profil.php">
+                    <span class="cursor-pointer hover:opacity-80 transition-all duration-200">
+                        <img src="../uploads/<?php echo $foto; ?>"
+                            alt="Foto Profil"
+                            class="w-10 h-10 rounded-full object-cover border border-gray-300 shadow-sm">
+                    </span>
+
+                </a>
             </div>
             <button id="menu-btn" class="text-gray-700 focus:outline-none">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">

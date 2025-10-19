@@ -10,6 +10,11 @@ if (!isset($_SESSION['user_id'])) {
 
 $id_user = $_SESSION['user_id'];
 
+// Ambil data user
+$query_user = mysqli_query($conn, "SELECT * FROM user WHERE id_user = '$id_user'");
+$data_user = mysqli_fetch_assoc($query_user);
+
+
 // Ambil data keranjang + produk
 $query = "
     SELECT k.*, p.nama_produk, p.harga, p.foto, p.kategori
@@ -137,15 +142,118 @@ $result = mysqli_query($conn, $query);
                             <span id="total-bayar">Rp <?php echo number_format($total + 15000, 0, ',', '.'); ?></span>
                         </div>
                     </div>
-                    <button class="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition">
+                    <button id="checkoutBtn" class="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition">
                         Checkout Sekarang
                     </button>
+                </div>
+                <!-- Modal Checkout -->
+                <div id="checkoutModal"
+                    class="bg-black/10 backdrop-blur-lg fixed inset-0 hidden justify-center items-center z-50 transition-all duration-300 ease-in-out">
+
+                    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative transform scale-95 transition-transform duration-300">
+
+                        <!-- Tombol close (X) -->
+                        <button id="closeIcon" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
+                            <i class="fa-solid fa-xmark text-xl"></i>
+                        </button>
+
+                        <!-- Judul -->
+                        <h2 class="text-2xl font-bold mb-6 text-gray-800 text-center">
+                            Konfirmasi Checkout
+                        </h2>
+
+                        <!-- Pesan Error -->
+                        <?php if (isset($_GET['error'])): ?>
+                            <div class="bg-red-100 border border-red-300 text-red-800 p-3 rounded-md mb-4 text-sm text-center">
+                                <?php
+                                if ($_GET['error'] == 'stok_habis') {
+                                    echo "Maaf, stok produk \"" . htmlspecialchars($_GET['produk']) . "\" sudah habis.";
+                                } elseif ($_GET['error'] == 'stok_kurang') {
+                                    echo "Maaf, stok produk \"" . htmlspecialchars($_GET['produk']) . "\" tidak mencukupi.";
+                                }
+                                ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <!-- Form Checkout -->
+                        <form action="../actions/proses_checkout.php" method="POST" class="space-y-5">
+
+                            <!-- Nama -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
+                                <input type="text" name="nama" id="nama"
+                                    value="<?php echo htmlspecialchars($data_user['nama']); ?>"
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                    required>
+                            </div>
+
+                            <!-- Alamat -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Alamat</label>
+                                <input type="text" name="alamat" id="alamat"
+                                    value="<?php echo htmlspecialchars($data_user['alamat']); ?>"
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                    required>
+                            </div>
+
+                            <!-- Nomor HP -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">No HP</label>
+                                <input type="text" name="no_hp" id="no_hp"
+                                    value="<?php echo htmlspecialchars($data_user['no_hp']); ?>"
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                    required>
+                            </div>
+
+                            <!-- Metode Pembayaran -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Metode Pembayaran</label>
+                                <select name="metode_pembayaran" id="metode_pembayaran"
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                                    <option value="COD">COD (Bayar di Tempat)</option>
+                                    <option value="Transfer Bank">Transfer Bank</option>
+                                    <option value="E-Wallet">E-Wallet</option>
+                                </select>
+                            </div>
+
+                            <!-- Tombol Aksi -->
+                            <div class="flex justify-end space-x-3 pt-4 border-t border-gray-100 mt-6">
+                                <button type="button" id="closeModal"
+                                    class="px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition">
+                                    Batal
+                                </button>
+                                <button type="submit"
+                                    class="px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition">
+                                    Konfirmasi
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         <?php } ?>
     </section>
 
     <script>
+        const checkoutModal = document.getElementById('checkoutModal');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const closeModal = document.getElementById('closeModal');
+        const closeIcon = document.getElementById('closeIcon');
+
+        // buka modal
+        checkoutBtn.addEventListener('click', () => {
+            checkoutModal.classList.remove('hidden');
+            checkoutModal.classList.add('flex');
+        });
+
+        // tutup modal
+        [closeModal, closeIcon].forEach(btn => {
+            btn.addEventListener('click', () => {
+                checkoutModal.classList.remove('flex');
+                checkoutModal.classList.add('hidden');
+            });
+        });
+
         function updateQty(btn, delta, harga) {
             const container = btn.parentElement;
             const idKeranjang = container.dataset.id;
@@ -192,8 +300,6 @@ $result = mysqli_query($conn, $query);
                 .catch(err => alert("Terjadi kesalahan koneksi ke server"));
         }
     </script>
-
-
 </body>
 
 </html>

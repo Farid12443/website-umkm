@@ -95,7 +95,7 @@ $data = mysqli_fetch_assoc($result);
 
                     <!-- Profil -->
                     <div class="flex items-center space-x-5 mb-8 bg-gray-50 p-5 rounded-xl">
-                        <img src="../uploads/<?php echo $data['foto'] ?: 'default.png'; ?>"
+                        <img src="../uploads/<?php echo $data['foto'] ?: 'default.jpg'; ?>"
                             alt="Foto Profil" class="w-20 h-20 rounded-full object-cover ring-2 ring-green-300">
                         <div>
                             <h4 class="text-lg font-semibold text-gray-900">
