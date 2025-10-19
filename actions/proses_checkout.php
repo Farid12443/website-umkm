@@ -63,6 +63,8 @@ while ($row = mysqli_fetch_assoc($query_cart)) {
 // Hapus keranjang
 mysqli_query($conn, "DELETE FROM keranjang WHERE id_user = '$id_user'");
 
-// Redirect sukses
+// Setelah semua proses checkout berhasil
 header("Location: ../public/cart.php?success=1");
 exit;
+
+?>

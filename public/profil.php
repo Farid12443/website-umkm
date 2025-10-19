@@ -69,7 +69,7 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
         <div class="flex flex-col lg:flex-row min-h-screen">
 
             <!-- Sidebar -->
-            <aside class="w-full h-screen lg:w-1/4 bg-gray-50 border-r border-gray-200 p-6">
+            <aside class="w-full md:h-screen lg:w-1/4 bg-gray-50 border-r border-gray-200 p-6">
                 <button
                     onclick="window.location.href='index.php'"
                     class="mb-6 flex items-center space-x-2 text-gray-700 hover:text-green-600 transition font-medium">
@@ -356,7 +356,7 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
                         </div>
 
                         <!-- Modal Konfirmasi logout Akun -->
-                        <div id="modalLogout" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 p-4 hidden ">
+                        <div id="modalLogout" class="fixed inset-0  bg-black/50 bg-opacity-50 items-center justify-center z-50 p-4 hidden ">
                             <div class="bg-white rounded-xl shadow-2xl w-full max-w-md">
                                 <div class="p-6">
                                     <h4 class="text-lg font-semibold mb-4 text-red-600 flex items-center space-x-2">
@@ -373,7 +373,7 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
                         </div>
 
                         <!-- Modal Konfirmasi Hapus Akun -->
-                        <div id="modalHapus" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 p-4 hidden ">
+                        <div id="modalHapus" class="fixed inset-0 bg-black/50 bg-opacity-50 items-center justify-center z-50 p-4 hidden ">
                             <div class="bg-white rounded-xl shadow-2xl w-full max-w-md">
                                 <div class="p-6">
                                     <h4 class="text-lg font-semibold mb-4 text-red-600 flex items-center space-x-2">

@@ -230,6 +230,25 @@ $result = mysqli_query($conn, $query);
                         </form>
                     </div>
                 </div>
+                <!-- Modal Sukses -->
+                <div id="successModal"
+                    class="bg-black/10 backdrop-blur-lg fixed inset-0 hidden justify-center items-center z-50 transition-all duration-300 ease-in-out">
+
+                    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 text-center relative transform scale-95 transition-transform duration-300">
+                        <div class="flex justify-center mb-4">
+                            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-check text-3xl"></i>
+                            </div>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">Pesanan Anda Telah Siap!</h2>
+                        <p class="text-gray-600 mb-6">Terima kasih telah berbelanja. Pesanan Anda akan segera diproses.</p>
+                        <button id="closeSuccess"
+                            class="px-5 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition">
+                            Tutup
+                        </button>
+                    </div>
+                </div>
+
             </div>
         <?php } ?>
     </section>
@@ -252,6 +271,23 @@ $result = mysqli_query($conn, $query);
                 checkoutModal.classList.remove('flex');
                 checkoutModal.classList.add('hidden');
             });
+        });
+
+        const successModal = document.getElementById('successModal');
+        const closeSuccess = document.getElementById('closeSuccess');
+
+        // Jika URL mengandung ?success=1 → tampilkan modal sukses
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success') === '1') {
+            successModal.classList.remove('hidden');
+            successModal.classList.add('flex');
+        }
+
+        // Tutup modal sukses
+        closeSuccess.addEventListener('click', () => {
+            successModal.classList.remove('flex');
+            successModal.classList.add('hidden');
+            window.location.href = './index.php'; // opsional: balik ke home
         });
 
         function updateQty(btn, delta, harga) {

@@ -135,7 +135,7 @@ if (isset($_POST['submit'])) {
 
                         <p class="text-center text-gray-600 text-sm mt-4">
                             Sudah punya akun?
-                            <a href="#" class="text-green-600 font-medium hover:underline">Masuk di sini</a>
+                            <a href="./login.php" class="text-green-600 font-medium hover:underline">Masuk di sini</a>
                         </p>
                     </form>
                 </div>
