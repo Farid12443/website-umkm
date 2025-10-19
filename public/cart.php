@@ -27,13 +27,29 @@ $result = mysqli_query($conn, $query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keranjang Belanja</title>
+
+    <!-- load tailwindcss -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- load fontawesome -->
     <script src="https://kit.fontawesome.com/1df42cf205.js" crossorigin="anonymous"></script>
+
+    <!-- load google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Marmelad&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body class="bg-[#f9f9f9] font-[roboto]">
     <section class="max-w-7xl mx-auto px-8 py-8 md:px-32">
+        <div class="flex items-center mb-6">
+            <button onclick="history.back()"
+                class="flex items-center text-gray-600 hover:text-green-600 transition">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Kembali
+            </button>
+        </div>
         <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">Keranjang Belanja</h1>
+
 
         <?php if (mysqli_num_rows($result) == 0) { ?>
             <!-- Jika keranjang kosong -->
@@ -42,7 +58,7 @@ $result = mysqli_query($conn, $query);
                     alt="Empty Cart" class="w-24 sm:w-32 mb-4 opacity-50 mx-auto">
                 <h2 class="text-lg sm:text-xl font-semibold text-gray-700 mb-2">Keranjangmu masih kosong</h2>
                 <p class="text-gray-500 mb-6 text-sm sm:text-base">Yuk, tambahkan produk favoritmu ke keranjang sekarang!</p>
-                <a href="../public/components/products.php"
+                <a href="./index.php#products-section"
                     class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition">
                     Belanja Sekarang
                 </a>
@@ -70,13 +86,14 @@ $result = mysqli_query($conn, $query);
 
                             <div class="flex flex-col sm:flex-row items-center sm:space-x-4 mt-3 sm:mt-0">
                                 <!-- Counter -->
-                                <div class="flex items-center border rounded-lg overflow-hidden">
+                                <div class="flex items-center border rounded-lg overflow-hidden" data-id="<?php echo $row['id_keranjang']; ?>">
                                     <button class="px-3 py-1 text-gray-600 hover:bg-gray-100"
                                         onclick="updateQty(this, -1, <?php echo $row['harga']; ?>)">−</button>
                                     <span class="px-4 font-medium text-gray-800 qty"><?php echo $row['jumlah']; ?></span>
                                     <button class="px-3 py-1 text-gray-600 hover:bg-gray-100"
                                         onclick="updateQty(this, 1, <?php echo $row['harga']; ?>)">+</button>
                                 </div>
+
 
                                 <!-- Subtotal -->
                                 <p class="font-semibold text-gray-800 text-lg subtotal">Rp <?php echo number_format($subtotal, 0, ',', '.'); ?></p>
@@ -129,10 +146,15 @@ $result = mysqli_query($conn, $query);
     </section>
 
     <script>
-        // Update jumlah dan total harga di sisi klien
         function updateQty(btn, delta, harga) {
-            const qtyEl = btn.parentElement.querySelector(".qty");
-            const subtotalEl = btn.closest(".flex").querySelector(".subtotal");
+            const container = btn.parentElement;
+            const idKeranjang = container.dataset.id;
+            const qtyEl = container.querySelector(".qty");
+
+            // Cari subtotal dengan lebih tepat — ambil parent produk card
+            const productCard = btn.closest(".flex.flex-col.sm\\:flex-row");
+            const subtotalEl = productCard.querySelector(".subtotal");
+
             const totalHargaEl = document.getElementById("total-harga");
             const totalBayarEl = document.getElementById("total-bayar");
 
@@ -140,20 +162,38 @@ $result = mysqli_query($conn, $query);
             qty = Math.max(1, qty + delta);
             qtyEl.textContent = qty;
 
-            // Hitung ulang subtotal
-            const subtotal = harga * qty;
-            subtotalEl.textContent = "Rp " + subtotal.toLocaleString("id-ID");
+            // Kirim ke server via AJAX
+            fetch("../actions/update_jumlah.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: `id_keranjang=${idKeranjang}&jumlah=${qty}`
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        // Hitung ulang subtotal
+                        const subtotal = harga * qty;
+                        subtotalEl.textContent = "Rp " + subtotal.toLocaleString("id-ID");
 
-            // Hitung ulang total semua item
-            let total = 0;
-            document.querySelectorAll(".subtotal").forEach(sub => {
-                total += parseInt(sub.textContent.replace(/\D/g, ""));
-            });
+                        // Hitung ulang total semua item
+                        let total = 0;
+                        document.querySelectorAll(".subtotal").forEach(sub => {
+                            total += parseInt(sub.textContent.replace(/\D/g, ""));
+                        });
 
-            totalHargaEl.textContent = "Rp " + total.toLocaleString("id-ID");
-            totalBayarEl.textContent = "Rp " + (total + 15000).toLocaleString("id-ID");
+                        totalHargaEl.textContent = "Rp " + total.toLocaleString("id-ID");
+                        totalBayarEl.textContent = "Rp " + (total + 15000).toLocaleString("id-ID");
+                    } else {
+                        alert("Gagal memperbarui jumlah: " + data.message);
+                    }
+                })
+                .catch(err => alert("Terjadi kesalahan koneksi ke server"));
         }
     </script>
+
+
 </body>
 
 </html>

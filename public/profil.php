@@ -20,7 +20,7 @@ $data = mysqli_fetch_assoc($result);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/1df42cf205.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -55,15 +55,15 @@ $data = mysqli_fetch_assoc($result);
     </style>
 </head>
 
-<body class="bg-[#f9fafb] min-h-screen">
+<body class="bg-[#f9fafb]">
 
-    <section class="max-w-7xl mx-auto min-h-screen bg-gray-50">
-        <div class="flex flex-col-reverse lg:flex-row min-h-screen">
+    <section class="max-w-7xl mx-auto bg-gray-50">
+        <div class="flex flex-col lg:flex-row min-h-screen">
 
             <!-- Sidebar -->
-            <aside class="w-full lg:w-1/4 bg-gray-50 border-r border-gray-200 p-6">
+            <aside class="w-full h-screen lg:w-1/4 bg-gray-50 border-r border-gray-200 p-6">
                 <button
-                   onclick="window.location.href='index.php'"
+                    onclick="window.location.href='index.php'"
                     class="mb-6 flex items-center space-x-2 text-gray-700 hover:text-green-600 transition font-medium">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Kembali</span>
@@ -88,7 +88,7 @@ $data = mysqli_fetch_assoc($result);
             </aside>
 
             <!-- Main Content -->
-            <main id="content-area" class="flex-1 p-8 bg-white min-h-screen">
+            <main id="content-area" class="flex-1 p-8 bg-white overflow-y-auto h-screen">
                 <div id="account-info" class="fade-in">
                     <h3 class="text-2xl font-bold mb-4 text-gray-800">Account Info</h3>
                     <p class="text-gray-600 mb-6">Lihat dan lihat riwayat transaksi anda.</p>
