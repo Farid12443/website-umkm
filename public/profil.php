@@ -11,6 +11,14 @@ if (!isset($_SESSION['user_id'])) {
 $id = $_SESSION['user_id'];
 $result = mysqli_query($conn, "SELECT * FROM user WHERE id_user='$id'");
 $data = mysqli_fetch_assoc($result);
+
+// Ambil daftar transaksi user
+$query_transaksi = "
+    SELECT * FROM transaksi
+    WHERE id_user = '$id'
+    ORDER BY created_at DESC
+";
+$result_transaksi = mysqli_query($conn, $query_transaksi);
 ?>
 
 <!DOCTYPE html>
@@ -111,34 +119,70 @@ $data = mysqli_fetch_assoc($result);
 
                     <!-- riwayat transaksi -->
                     <div class="space-y-4 mb-10">
-                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Riwayat Transaksi </h4>
-                        <div class="space-y-4 max-h-[500px] overflow-y-auto fade-in">
-                            <div
-                                class="border border-gray-200 rounded-xl p-4 flex justify-between items-center hover:shadow-md transition bg-gray-50">
-                                <div>
-                                    <h4 class="font-semibold text-gray-900">Pembelian Beras Premium</h4>
-                                    <p class="text-gray-500 text-sm">12 Oktober 2023 | Rp 150.000</p>
-                                </div>
-                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">Selesai</span>
-                            </div>
-                            <div
-                                class="border border-gray-200 rounded-xl p-4 flex justify-between items-center hover:shadow-md transition bg-gray-50">
-                                <div>
-                                    <h4 class="font-semibold text-gray-900">Pembelian Beras Organik</h4>
-                                    <p class="text-gray-500 text-sm">9 Oktober 2023 | Rp 120.000</p>
-                                </div>
-                                <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">Diproses</span>
-                            </div>
-                            <div
-                                class="border border-gray-200 rounded-xl p-4 flex justify-between items-center hover:shadow-md transition bg-gray-50">
-                                <div>
-                                    <h4 class="font-semibold text-gray-900">Pembelian Beras Merah</h4>
-                                    <p class="text-gray-500 text-sm">5 Oktober 2023 | Rp 100.000</p>
-                                </div>
-                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">Dikirim</span>
-                            </div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Riwayat Transaksi</h4>
+                        <div class="space-y-4 fade-in">
+
+                            <?php if (mysqli_num_rows($result_transaksi) > 0): ?>
+                                <?php while ($trx = mysqli_fetch_assoc($result_transaksi)): ?>
+                                    <div class="border border-gray-200 rounded-xl p-4 bg-gray-50 hover:shadow-md transition">
+                                        <div class="flex justify-between items-center">
+                                            <div>
+                                                <h4 class="font-semibold text-gray-900">Transaksi #<?= $trx['id_transaksi'] ?></h4>
+                                                <p class="text-gray-500 text-sm">
+                                                    <?= date('d M Y H:i', strtotime($trx['created_at'])) ?> |
+                                                    Rp <?= number_format($trx['total_harga'], 0, ',', '.') ?>
+                                                </p>
+                                                <p class="text-gray-500 text-sm">Metode: <?= htmlspecialchars($trx['metode_pembayaran']) ?></p>
+                                            </div>
+
+                                            <?php
+                                            $status = strtolower($trx['status']);
+                                            $warna = match ($status) {
+                                                'selesai' => 'bg-green-100 text-green-700',
+                                                'diproses' => 'bg-yellow-100 text-yellow-700',
+                                                'dikirim' => 'bg-blue-100 text-blue-700',
+                                                default => 'bg-gray-100 text-gray-600',
+                                            };
+                                            ?>
+                                            <span class="<?= $warna ?> px-3 py-1 rounded-full text-sm font-medium">
+                                                <?= ucfirst($trx['status']) ?>
+                                            </span>
+                                        </div>
+
+
+                                        <?php
+                                        $id_trx = $trx['id_transaksi'];
+                                        $detail = mysqli_query($conn, "
+                            SELECT td.*, p.nama_produk, p.foto 
+                            FROM transaksi_detail td
+                            JOIN produk p ON td.id_produk = p.id_produk
+                            WHERE td.id_transaksi = '$id_trx'
+                        ");
+                                        ?>
+                                        <div class="mt-4 border-t border-gray-200 pt-3 space-y-2">
+                                            <?php while ($d = mysqli_fetch_assoc($detail)): ?>
+                                                <div class="flex items-center">
+                                                    <img src="../uploads/<?= htmlspecialchars($d['foto']) ?>"
+                                                        class="w-12 h-12 object-cover rounded-lg mr-3 border">
+                                                    <div>
+                                                        <p class="font-medium text-gray-800"><?= htmlspecialchars($d['nama_produk']) ?></p>
+                                                        <p class="text-gray-500 text-sm">
+                                                            <?= $d['jumlah'] ?> x Rp <?= number_format($d['subtotal'] / $d['jumlah'], 0, ',', '.') ?> =
+                                                            Rp <?= number_format($d['subtotal'], 0, ',', '.') ?>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            <?php endwhile; ?>
+                                        </div>
+                                    </div>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <p class="text-gray-500 text-sm text-center py-6">Belum ada transaksi.</p>
+                            <?php endif; ?>
+
                         </div>
                     </div>
+
                 </div>
 
                 <div id="pengaturan-akun" class="hidden fade-in">
