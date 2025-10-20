@@ -2,6 +2,8 @@
 session_start();
 include "../config/connection.php";
 
+$show_success_modal = isset($_GET['success']) && $_GET['success'] == 1;
+
 // Pastikan user login
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -70,7 +72,8 @@ $result = mysqli_query($conn, $query);
             </div>
         <?php } else { ?>
 
-            <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <div id="cartContainer" class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+
                 <!-- Daftar produk -->
                 <div class="lg:col-span-2 space-y-4">
                     <?php
@@ -146,7 +149,8 @@ $result = mysqli_query($conn, $query);
                         Checkout Sekarang
                     </button>
                 </div>
-                <!-- Modal Checkout -->
+
+                <!-- modal checkout -->
                 <div id="checkoutModal"
                     class="bg-black/10 backdrop-blur-lg fixed inset-0 hidden justify-center items-center z-50 transition-all duration-300 ease-in-out">
 
@@ -157,12 +161,11 @@ $result = mysqli_query($conn, $query);
                             <i class="fa-solid fa-xmark text-xl"></i>
                         </button>
 
-                        <!-- Judul -->
                         <h2 class="text-2xl font-bold mb-6 text-gray-800 text-center">
                             Konfirmasi Checkout
                         </h2>
 
-                        <!-- Pesan Error -->
+                        <!-- pesan error -->
                         <?php if (isset($_GET['error'])): ?>
                             <div class="bg-red-100 border border-red-300 text-red-800 p-3 rounded-md mb-4 text-sm text-center">
                                 <?php
@@ -175,10 +178,9 @@ $result = mysqli_query($conn, $query);
                             </div>
                         <?php endif; ?>
 
-                        <!-- Form Checkout -->
+                        <!-- form checkout -->
                         <form action="../actions/proses_checkout.php" method="POST" class="space-y-5">
 
-                            <!-- Nama -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
                                 <input type="text" name="nama" id="nama"
@@ -187,7 +189,6 @@ $result = mysqli_query($conn, $query);
                                     required>
                             </div>
 
-                            <!-- Alamat -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Alamat</label>
                                 <input type="text" name="alamat" id="alamat"
@@ -196,7 +197,6 @@ $result = mysqli_query($conn, $query);
                                     required>
                             </div>
 
-                            <!-- Nomor HP -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">No HP</label>
                                 <input type="text" name="no_hp" id="no_hp"
@@ -205,7 +205,6 @@ $result = mysqli_query($conn, $query);
                                     required>
                             </div>
 
-                            <!-- Metode Pembayaran -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Metode Pembayaran</label>
                                 <select name="metode_pembayaran" id="metode_pembayaran"
@@ -216,13 +215,12 @@ $result = mysqli_query($conn, $query);
                                 </select>
                             </div>
 
-                            <!-- Tombol Aksi -->
                             <div class="flex justify-end space-x-3 pt-4 border-t border-gray-100 mt-6">
                                 <button type="button" id="closeModal"
                                     class="px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition">
                                     Batal
                                 </button>
-                                <button type="submit"
+                                <button type="submit" id="confirmCheckout"
                                     class="px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition">
                                     Konfirmasi
                                 </button>
@@ -230,22 +228,13 @@ $result = mysqli_query($conn, $query);
                         </form>
                     </div>
                 </div>
-                <!-- Modal Sukses -->
-                <div id="successModal"
-                    class="bg-black/10 backdrop-blur-lg fixed inset-0 hidden justify-center items-center z-50 transition-all duration-300 ease-in-out">
 
-                    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 text-center relative transform scale-95 transition-transform duration-300">
-                        <div class="flex justify-center mb-4">
-                            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
-                                <i class="fa-solid fa-check text-3xl"></i>
-                            </div>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-800 mb-2">Pesanan Anda Telah Siap!</h2>
-                        <p class="text-gray-600 mb-6">Terima kasih telah berbelanja. Pesanan Anda akan segera diproses.</p>
-                        <button id="closeSuccess"
-                            class="px-5 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition">
-                            Tutup
-                        </button>
+                <!-- Modal Sukses -->
+                <div id="successModal" class="fixed inset-0 bg-black/10 backdrop-blur-lg items-center justify-center hidden">
+                    <div class="bg-white rounded-lg p-6 text-center shadow-xl">
+                        <h2 class="text-2xl font-semibold text-green-600 mb-4">Checkout Berhasil!</h2>
+                        <p class="text-gray-600 mb-6">Pesananmu telah berhasil dibuat 🎉</p>
+                        <button id="closeSuccessModal" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg">Tutup</button>
                     </div>
                 </div>
 
@@ -253,11 +242,14 @@ $result = mysqli_query($conn, $query);
         <?php } ?>
     </section>
 
+
     <script>
         const checkoutModal = document.getElementById('checkoutModal');
         const checkoutBtn = document.getElementById('checkoutBtn');
         const closeModal = document.getElementById('closeModal');
         const closeIcon = document.getElementById('closeIcon');
+        const successModal = document.getElementById('successModal');
+        const closeSuccessModal = document.getElementById('closeSuccessModal');
 
         // buka modal
         checkoutBtn.addEventListener('click', () => {
@@ -273,69 +265,65 @@ $result = mysqli_query($conn, $query);
             });
         });
 
-        const successModal = document.getElementById('successModal');
-        const closeSuccess = document.getElementById('closeSuccess');
-
-        // Jika URL mengandung ?success=1 → tampilkan modal sukses
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('success') === '1') {
-            successModal.classList.remove('hidden');
-            successModal.classList.add('flex');
-        }
-
-        // Tutup modal sukses
-        closeSuccess.addEventListener('click', () => {
+        // tutup modal sukses
+        closeSuccessModal.addEventListener('click', () => {
             successModal.classList.remove('flex');
             successModal.classList.add('hidden');
-            window.location.href = './index.php'; // opsional: balik ke home
         });
 
-        function updateQty(btn, delta, harga) {
-            const container = btn.parentElement;
-            const idKeranjang = container.dataset.id;
-            const qtyEl = container.querySelector(".qty");
+        // FORM CHECKOUT AJAX
+        const confirmCheckout = document.getElementById("confirmCheckout");
+        const checkoutForm = document.querySelector("#checkoutModal form");
 
-            // Cari subtotal dengan lebih tepat — ambil parent produk card
-            const productCard = btn.closest(".flex.flex-col.sm\\:flex-row");
-            const subtotalEl = productCard.querySelector(".subtotal");
+        confirmCheckout.addEventListener("click", function(e) {
+            e.preventDefault(); // cegah reload
+            console.log("Tombol Konfirmasi diklik"); // DEBUG
 
-            const totalHargaEl = document.getElementById("total-harga");
-            const totalBayarEl = document.getElementById("total-bayar");
+            const formData = new FormData(checkoutForm);
 
-            let qty = parseInt(qtyEl.textContent);
-            qty = Math.max(1, qty + delta);
-            qtyEl.textContent = qty;
-
-            // Kirim ke server via AJAX
-            fetch("../actions/update_jumlah.php", {
+            fetch("../actions/proses_checkout.php", {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    body: `id_keranjang=${idKeranjang}&jumlah=${qty}`
+                    body: formData
                 })
-                .then(res => res.json())
+                .then(res => {
+                    console.log("Respon diterima:", res);
+                    return res.json();
+                })
                 .then(data => {
+                    console.log("Data JSON:", data);
                     if (data.status === "success") {
-                        // Hitung ulang subtotal
-                        const subtotal = harga * qty;
-                        subtotalEl.textContent = "Rp " + subtotal.toLocaleString("id-ID");
+                        checkoutModal.classList.add("hidden");
+                        checkoutModal.classList.remove("flex");
+                        successModal.classList.remove("hidden");
+                        successModal.classList.add("flex");
 
-                        // Hitung ulang total semua item
-                        let total = 0;
-                        document.querySelectorAll(".subtotal").forEach(sub => {
-                            total += parseInt(sub.textContent.replace(/\D/g, ""));
+                        // Setelah modal sukses ditutup, reload halaman agar PHP menampilkan tampilan keranjang kosong
+                        closeSuccessModal.addEventListener("click", () => {
+                            window.location.reload();
                         });
-
-                        totalHargaEl.textContent = "Rp " + total.toLocaleString("id-ID");
-                        totalBayarEl.textContent = "Rp " + (total + 15000).toLocaleString("id-ID");
                     } else {
-                        alert("Gagal memperbarui jumlah: " + data.message);
+                        alert(data.message || "Checkout gagal.");
                     }
                 })
-                .catch(err => alert("Terjadi kesalahan koneksi ke server"));
-        }
+
+                .catch(err => {
+                    console.error("Error fetch:", err);
+                    alert("Terjadi kesalahan koneksi ke server.");
+                });
+        });
     </script>
+
+    <?php if ($show_success_modal): ?>
+        <script>
+            window.addEventListener("DOMContentLoaded", () => {
+                const successModal = document.getElementById("successModal");
+                successModal.classList.remove("hidden");
+                successModal.classList.add("flex");
+            });
+        </script>
+    <?php endif; ?>
+
+
 </body>
 
 </html>
