@@ -46,9 +46,17 @@ while ($row = mysqli_fetch_assoc($query_cart)) {
     $total_harga += $produk['harga'] * $row['jumlah'];
 }
 
+// ✅ Tambahkan ini di sini (sebelum insert transaksi)
+$query_nomor = mysqli_query($conn, "SELECT IFNULL(MAX(nomor_transaksi_user), 0) + 1 AS next_nomor 
+                                    FROM transaksi WHERE id_user = '$id_user'");
+$row_nomor = mysqli_fetch_assoc($query_nomor);
+$nomor_transaksi_user = $row_nomor['next_nomor'];
+
 // Simpan transaksi
-mysqli_query($conn, "INSERT INTO transaksi (id_user, total_harga, metode_pembayaran, nama, alamat, no_hp)
-                     VALUES ('$id_user', '$total_harga', '$metode', '$nama', '$alamat', '$no_hp')");
+mysqli_query($conn, "INSERT INTO transaksi (id_user, total_harga, metode_pembayaran, nama, alamat, no_hp, nomor_transaksi_user)
+                     VALUES ('$id_user', '$total_harga', '$metode', '$nama', '$alamat', '$no_hp', '$nomor_transaksi_user')");
+
+
 
 $id_transaksi = mysqli_insert_id($conn);
 
@@ -69,4 +77,3 @@ mysqli_query($conn, "DELETE FROM keranjang WHERE id_user = '$id_user'");
 // ✅ kirim respon JSON ke fetch
 echo json_encode(["status" => "success"]);
 exit;
-?>

@@ -45,6 +45,43 @@ $result = mysqli_query($conn, $query);
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Marmelad&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        @keyframes checkmark {
+            0% {
+                stroke-dasharray: 0 30;
+                stroke-dashoffset: 30;
+            }
+
+            100% {
+                stroke-dasharray: 30 30;
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .checkmark-path {
+            stroke-dasharray: 30 30;
+            stroke-dashoffset: 30;
+            animation: checkmark 0.8s ease forwards;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0);
+            }
+
+            60% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .animate-checkmark {
+            animation: pop 0.5s ease-out;
+        }
+    </style>
 </head>
 
 <body class="bg-[#f9f9f9] font-[roboto]">
@@ -59,7 +96,7 @@ $result = mysqli_query($conn, $query);
 
 
         <?php if (mysqli_num_rows($result) == 0) { ?>
-            <!-- Jika keranjang kosong -->
+            <!-- jika keranjang kosong -->
             <div class="flex flex-col items-center justify-center text-center py-10 rounded-xl">
                 <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
                     alt="Empty Cart" class="w-24 sm:w-32 mb-4 opacity-50 mx-auto">
@@ -73,8 +110,6 @@ $result = mysqli_query($conn, $query);
         <?php } else { ?>
 
             <div id="cartContainer" class="grid grid-cols-1 gap-6 lg:grid-cols-3">
-
-                <!-- Daftar produk -->
                 <div class="lg:col-span-2 space-y-4">
                     <?php
                     $total = 0;
@@ -93,7 +128,6 @@ $result = mysqli_query($conn, $query);
                             </div>
 
                             <div class="flex flex-col sm:flex-row items-center sm:space-x-4 mt-3 sm:mt-0">
-                                <!-- Counter -->
                                 <div class="flex items-center border rounded-lg overflow-hidden" data-id="<?php echo $row['id_keranjang']; ?>">
                                     <button class="px-3 py-1 text-gray-600 hover:bg-gray-100"
                                         onclick="updateQty(this, -1, <?php echo $row['harga']; ?>)">−</button>
@@ -101,12 +135,8 @@ $result = mysqli_query($conn, $query);
                                     <button class="px-3 py-1 text-gray-600 hover:bg-gray-100"
                                         onclick="updateQty(this, 1, <?php echo $row['harga']; ?>)">+</button>
                                 </div>
-
-
-                                <!-- Subtotal -->
                                 <p class="font-semibold text-gray-800 text-lg subtotal">Rp <?php echo number_format($subtotal, 0, ',', '.'); ?></p>
 
-                                <!-- Tombol hapus -->
                                 <form action="../actions/hapus_keranjang.php" method="POST">
                                     <input type="hidden" name="id_keranjang" value="<?php echo $row['id_keranjang']; ?>">
                                     <button type="submit" class="text-gray-400 hover:text-red-500">
@@ -117,7 +147,6 @@ $result = mysqli_query($conn, $query);
                         </div>
                     <?php } ?>
 
-                    <!-- Tombol hapus semua -->
                     <div class="flex justify-end mt-6">
                         <form action="../actions/clear_keranjang.php" method="POST">
                             <button type="submit" class="px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white font-semibold transition">
@@ -127,7 +156,7 @@ $result = mysqli_query($conn, $query);
                     </div>
                 </div>
 
-                <!-- Ringkasan -->
+                <!-- ringkasan -->
                 <div class="bg-white rounded-xl shadow-sm p-6 space-y-4">
                     <h2 class="font-semibold text-gray-800 text-lg">Ringkasan Pesanan</h2>
                     <div class="space-y-2 text-gray-600">
@@ -156,7 +185,7 @@ $result = mysqli_query($conn, $query);
 
                     <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative transform scale-95 transition-transform duration-300">
 
-                        <!-- Tombol close (X) -->
+                        <!-- tombol close -->
                         <button id="closeIcon" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
                             <i class="fa-solid fa-xmark text-xl"></i>
                         </button>
@@ -229,17 +258,34 @@ $result = mysqli_query($conn, $query);
                     </div>
                 </div>
 
-                <!-- Modal Sukses -->
-                <div id="successModal" class="fixed inset-0 bg-black/10 backdrop-blur-lg items-center justify-center hidden">
-                    <div class="bg-white rounded-lg p-6 text-center shadow-xl">
-                        <h2 class="text-2xl font-semibold text-green-600 mb-4">Checkout Berhasil!</h2>
-                        <p class="text-gray-600 mb-6">Pesananmu telah berhasil dibuat 🎉</p>
-                        <button id="closeSuccessModal" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg">Tutup</button>
-                    </div>
+                <!-- modal sukses -->
+                <div id="successModal" class="bg-black/10 backdrop-blur-lg fixed inset-0 hidden justify-center items-center z-50 transition-all duration-300 ease-in-out">
+                    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 text-center relative transform scale-95 transition-transform duration-300">
+                        <div class="flex justify-center mb-4">
+                            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center relative overflow-hidden">
+                                <svg
+                                    class="w-10 h-10 text-green-600 animate-checkmark"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="4"
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        class="checkmark-path"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <audio id="successSound" src="https://www.myinstants.com/media/sounds/para-sesi-efekti_PaUswM1.mp3" preload="auto"></audio>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">Pesanan Anda Telah Siap!</h2>
+                        <p class="text-gray-600 mb-6">Terima kasih telah berbelanja. Pesanan Anda akan segera diproses.</p>
+                        <button id="closeSuccessModal" class="px-5 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition">
+                            Tutup
+                        </button> 
+                    </div> 
                 </div>
-
-            </div>
-        <?php } ?>
+            <?php } ?>
     </section>
 
 
@@ -277,7 +323,7 @@ $result = mysqli_query($conn, $query);
 
         confirmCheckout.addEventListener("click", function(e) {
             e.preventDefault(); // cegah reload
-            console.log("Tombol Konfirmasi diklik"); // DEBUG
+            console.log("Tombol Konfirmasi diklik");
 
             const formData = new FormData(checkoutForm);
 
@@ -297,6 +343,15 @@ $result = mysqli_query($conn, $query);
                         successModal.classList.remove("hidden");
                         successModal.classList.add("flex");
 
+                        const successSound = document.getElementById("successSound");
+                        if (successSound) {
+                            successSound.currentTime = 0;
+                            successSound.volume = 0.7; // bisa kamu ubah 0 - 1
+                            successSound.play().catch(() => {
+                                console.warn("Audio gagal dimainkan (butuh interaksi user)");
+                            });
+                        }
+
                         // Setelah modal sukses ditutup, reload halaman agar PHP menampilkan tampilan keranjang kosong
                         closeSuccessModal.addEventListener("click", () => {
                             window.location.reload();
@@ -312,18 +367,6 @@ $result = mysqli_query($conn, $query);
                 });
         });
     </script>
-
-    <?php if ($show_success_modal): ?>
-        <script>
-            window.addEventListener("DOMContentLoaded", () => {
-                const successModal = document.getElementById("successModal");
-                successModal.classList.remove("hidden");
-                successModal.classList.add("flex");
-            });
-        </script>
-    <?php endif; ?>
-
-
 </body>
 
 </html>
