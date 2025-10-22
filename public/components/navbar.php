@@ -2,7 +2,14 @@
 session_start();
 include "../config/connection.php";
 
-$id = $_SESSION['user_id'];
+if (!isset($_SESSION['user_id'])) {
+    $id = null;
+    $user = ['foto' => 'default.jpg'];
+    $total_item = 0;
+} else {
+    $id = $_SESSION['user_id'];
+}
+
 $resultUser = mysqli_query($conn, "SELECT * FROM user WHERE id_user='$id'");
 $user = mysqli_fetch_assoc($resultUser);
 
