@@ -56,12 +56,12 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <!-- Produk List -->
         <div class="flex overflow-x-auto space-x-6 snap-x snap-mandatory scrollbar-hide sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-8 sm:space-x-0 py-8">
             <?php foreach ($products as $item) { ?>
-                <div class="min-w-[230px] sm:min-w-0 snap-center rounded-xl bg-white shadow-md hover:shadow-xl transform transition-all duration-300 ease-in-out hover:-translate-y-1">
+                <div class="min-w-[300px] sm:min-w-0 snap-center rounded-xl bg-white shadow-md hover:shadow-xl transform transition-all duration-300 ease-in-out hover:-translate-y-1 min-h-[400px] flex flex-col">
                     <img src="../uploads/<?php echo $item['foto'] ?>"
                         alt="<?php echo htmlspecialchars($item['nama_produk']) ?>"
-                        class="w-full h-56 object-cover rounded-t-xl">
+                        class="w-full h-48 object-cover rounded-t-xl">
 
-                    <div class="flex flex-col justify-between p-4">
+                    <div class="flex flex-col justify-between p-4 flex-grow">
                         <h1 class="text-lg font-semibold text-gray-800 mt-2 truncate">
                             <?php echo htmlspecialchars($item['nama_produk']) ?>
                         </h1>
@@ -83,13 +83,11 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                 </span>
                             </div>
                         </div>
-                        <form action="../actions/tambah_keranjang.php" method="POST" class="flex">
-                            <form action="../actions/tambah_keranjang.php" method="POST" class="flex">
-                                <input type="hidden" name="id_produk" value="<?php echo $item['id_produk']; ?>">
-                                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white p-2 rounded-lg transition mt-3">
-                                    <i class="fa-solid fa-cart-plus"></i> Tambah
-                                </button>
-                            </form>
+                        <form action="../actions/tambah_keranjang.php" method="POST" class="mt-auto">
+                            <input type="hidden" name="id_produk" value="<?php echo $item['id_produk']; ?>">
+                            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white p-2 rounded-lg transition w-full">
+                                <i class="fa-solid fa-cart-plus"></i> Tambah
+                            </button>
                         </form>
                     </div>
                 </div>
