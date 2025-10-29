@@ -1,4 +1,4 @@
-<section class="max-w-7xl mx-auto">
+<section id="testimonial" class="max-w-7xl mx-auto">
   <div class="flex flex-col gap-12 my-12 md:grid grid-cols-5 md:mt-8 items-center justify-between px-8 py-18 md:pb-0 md:px-32 rounded-2xl">
     <!-- kanan -->
     <div class="col-span-2">
@@ -17,7 +17,7 @@
     </div>
 
     <!-- kiri -->
-    <div class="col-span-3 flex flex-col gap-6 justify-between">
+    <div class="hidden md:col-span-3 md:flex flex-col gap-6 justify-between">
       <!-- Container semua testimonial -->
       <div class="relative overflow-hidden">
         <div id="testimonialWrapper" class="flex transition-transform duration-700 ease-in-out">
@@ -106,58 +106,204 @@
         </button>
       </div>
     </div>
+
+    <!-- Testimonial Mobile -->
+    <div class="md:hidden w-full flex flex-col items-center px-2 py-8">
+      <!-- Container semua testimonial -->
+      <div class="relative overflow-hidden max-w-sm w-full">
+        <div id="testimonialWrapperMobile" class="flex transition-transform duration-700 ease-in-out">
+          <!-- Testimonial 1 -->
+          <div class="min-w-full card bg-white rounded-2xl shadow-md p-5">
+            <div class="flex items-start justify-between mb-3">
+              <img src="https://via.placeholder.com/80" alt="Foto pelanggan"
+                class="w-16 h-16 rounded-xl object-cover" />
+              <div class="text-right">
+                <div class="flex items-center mb-1 text-yellow-400">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </div>
+                <span class="text-xs text-gray-400">12 Okt 2024</span>
+              </div>
+            </div>
+            <p class="text-gray-700 italic mb-3">
+              “Berasnya pulen dan harum banget, beda dari beras biasa! Sekarang tiap hari makan rasanya lebih nikmat.”
+            </p>
+            <h4 class="font-semibold text-gray-900">Siti Rahmawati</h4>
+            <span class="text-sm text-gray-500">Semarang</span>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="min-w-full card bg-white rounded-2xl shadow-md p-5">
+            <div class="flex items-start justify-between mb-3">
+              <img src="https://via.placeholder.com/80" alt="Foto pelanggan"
+                class="w-16 h-16 rounded-xl object-cover" />
+              <div class="text-right">
+                <div class="flex items-center mb-1 text-yellow-400">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </div>
+                <span class="text-xs text-gray-400">18 Okt 2024</span>
+              </div>
+            </div>
+            <p class="text-gray-700 italic mb-3">
+              “Pelayanannya cepat dan ramah! Pengiriman juga aman, beras datang dalam keadaan bagus.”
+            </p>
+            <h4 class="font-semibold text-gray-900">Rizky Aditya</h4>
+            <span class="text-sm text-gray-500">Salatiga</span>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="min-w-full card bg-white rounded-2xl shadow-md p-5">
+            <div class="flex items-start justify-between mb-3">
+              <img src="https://via.placeholder.com/80" alt="Foto pelanggan"
+                class="w-16 h-16 rounded-xl object-cover" />
+              <div class="text-right">
+                <div class="flex items-center mb-1 text-yellow-400">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+                <span class="text-xs text-gray-400">22 Okt 2024</span>
+              </div>
+            </div>
+            <p class="text-gray-700 italic mb-3">
+              “Saya sudah coba berbagai merek, tapi yang ini paling enak! Pulen, wangi, dan awet.”
+            </p>
+            <h4 class="font-semibold text-gray-900">Dewi Kartika</h4>
+            <span class="text-sm text-gray-500">Solo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Indicator -->
+      <div class="flex gap-2 justify-center mt-4">
+        <span class="dot w-2 h-2 bg-green-600 rounded-full"></span>
+        <span class="dot w-2 h-2 bg-gray-300 rounded-full"></span>
+        <span class="dot w-2 h-2 bg-gray-300 rounded-full"></span>
+      </div>
+
+      <!-- Tombol navigasi -->
+      <div class="flex gap-4 mt-4">
+        <button id="prevBtnMobile" class="w-10 h-10 bg-green-100 hover:bg-green-200 text-green-600 rounded-full flex items-center justify-center transition">
+          <i class="fa-solid fa-chevron-left text-lg"></i>
+        </button>
+        <button id="nextBtnMobile" class="w-10 h-10 bg-green-100 hover:bg-green-200 text-green-600 rounded-full flex items-center justify-center transition">
+          <i class="fa-solid fa-chevron-right text-lg"></i>
+        </button>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <!-- Script Carousel -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const wrapper = document.getElementById("testimonialWrapper");
-    const dots = document.querySelectorAll(".dot");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
+    // Fungsi untuk inisialisasi carousel
+    function initCarousel(wrapperId, dotsSelector, prevBtnId, nextBtnId) {
+      const wrapper = document.getElementById(wrapperId);
+      const dots = document.querySelectorAll(dotsSelector);
+      const prevBtn = document.getElementById(prevBtnId);
+      const nextBtn = document.getElementById(nextBtnId);
 
-    if (!wrapper || !dots.length || !prevBtn || !nextBtn) {
-      console.error("Carousel elements not found. Check HTML structure.");
-      return;
-    }
+      if (!wrapper || !dots.length || !prevBtn || !nextBtn) {
+        console.error(`Carousel elements not found for ${wrapperId}. Check HTML structure.`);
+        return;
+      }
 
-    let index = 0;
-    const total = wrapper.children.length;
-    let autoSlideInterval;
+      const slides = wrapper.children;
+      const total = slides.length;
 
-    function showSlide(i) {
-      index = (i + total) % total;
+      // 🪄 Clone first & last slides for seamless looping
+      const firstClone = slides[0].cloneNode(true);
+      const lastClone = slides[total - 1].cloneNode(true);
+      wrapper.appendChild(firstClone);
+      wrapper.insertBefore(lastClone, slides[0]);
+
+      let index = 1; // start di slide pertama (setelah clone)
+      const allSlides = wrapper.children;
+      const slideCount = allSlides.length;
+
+      // Set posisi awal
       wrapper.style.transform = `translateX(-${index * 100}%)`;
-      dots.forEach((dot, dIndex) => {
-        dot.classList.toggle("bg-green-600", dIndex === index);
-        dot.classList.toggle("bg-gray-300", dIndex !== index);
+
+      let isTransitioning = false;
+      let autoSlideInterval;
+
+      function showSlide(i) {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        index = i;
+        wrapper.style.transition = "transform 0.7s cubic-bezier(0.33,1,0.68,1)";
+        wrapper.style.transform = `translateX(-${index * 100}%)`;
+
+        // Update dots (hanya untuk slide asli)
+        dots.forEach((dot, dIndex) => {
+          const activeIndex = (index - 1 + total) % total;
+          dot.classList.toggle("bg-green-600", dIndex === activeIndex);
+          dot.classList.toggle("bg-gray-300", dIndex !== activeIndex);
+        });
+      }
+
+      wrapper.addEventListener("transitionend", () => {
+        isTransitioning = false;
+        if (index === 0) {
+          wrapper.style.transition = "none";
+          index = total;
+          wrapper.style.transform = `translateX(-${index * 100}%)`;
+        } else if (index === slideCount - 1) {
+          wrapper.style.transition = "none";
+          index = 1;
+          wrapper.style.transform = `translateX(-${index * 100}%)`;
+        }
       });
+
+      function startAutoSlide() {
+        autoSlideInterval = setInterval(() => showSlide(index + 1), 5000);
+      }
+
+      function stopAutoSlide() {
+        clearInterval(autoSlideInterval);
+      }
+
+      prevBtn.addEventListener("click", () => showSlide(index - 1));
+      nextBtn.addEventListener("click", () => showSlide(index + 1));
+
+      wrapper.addEventListener('mouseenter', stopAutoSlide);
+      wrapper.addEventListener('mouseleave', startAutoSlide);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') showSlide(index - 1);
+        if (e.key === 'ArrowRight') showSlide(index + 1);
+      });
+
+      startAutoSlide();
     }
 
-    function startAutoSlide() {
-      autoSlideInterval = setInterval(() => showSlide(index + 1), 5000);
+    // Fungsi untuk memeriksa apakah elemen terlihat
+    function isVisible(element) {
+      return getComputedStyle(element).display !== 'none';
     }
 
-    function stopAutoSlide() {
-      clearInterval(autoSlideInterval);
+    // Inisialisasi untuk desktop
+    const desktopWrapper = document.getElementById("testimonialWrapper");
+    if (desktopWrapper && isVisible(desktopWrapper)) {
+      initCarousel("testimonialWrapper", ".dot", "prevBtn", "nextBtn");
     }
 
-    // Tombol navigasi
-    prevBtn.addEventListener("click", () => showSlide(index - 1));
-    nextBtn.addEventListener("click", () => showSlide(index + 1));
-
-    // Pause auto-slide saat hover
-    wrapper.addEventListener('mouseenter', stopAutoSlide);
-    wrapper.addEventListener('mouseleave', startAutoSlide);
-
-    // Keyboard navigation (opsional)
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') showSlide(index - 1);
-      if (e.key === 'ArrowRight') showSlide(index + 1);
-    });
-
-    // Start auto-slide
-    startAutoSlide();
+    // Inisialisasi untuk mobile
+    const mobileWrapper = document.getElementById("testimonialWrapperMobile");
+    if (mobileWrapper && isVisible(mobileWrapper)) {
+      initCarousel("testimonialWrapperMobile", ".dot", "prevBtnMobile", "nextBtnMobile");
+    }
   });
 </script>
