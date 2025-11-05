@@ -1,9 +1,13 @@
 <?php
+
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+
 include "../config/connection.php";
-// session_start();
 
 // Ambil data testimoni dan join ke tabel user
-$query = "SELECT t.*, u.nama 
+$query = "SELECT t.*, u.nama, u.foto, u.alamat
           FROM testimoni t
           JOIN user u ON t.id_user = u.id_user
           ORDER BY t.tanggal DESC";
@@ -66,23 +70,19 @@ $result_testimoni = mysqli_query($conn, $query);
           </form>
         </div>
       </div>
-
     </div>
-
-
-
 
     <!-- kiri -->
     <div class="hidden md:col-span-3 md:flex flex-col gap-6 justify-between">
       <!-- Container semua testimonial -->
       <div class="relative overflow-hidden">
         <div id="testimonialWrapper" class="flex transition-transform duration-700 ease-in-out">
-        
+
           <?php if (mysqli_num_rows($result_testimoni) > 0): ?>
             <?php while ($row = mysqli_fetch_assoc($result_testimoni)): ?>
               <div class="min-w-full card">
                 <div class="flex flex-row items-start justify-between">
-                  <img src="../uploads/<?//= htmlspecialchars($row['foto']) ?>"
+                  <img src="../uploads/<?= htmlspecialchars($row['foto']) ?>"
                     alt="Foto pelanggan"
                     class="w-20 h-20 rounded-xl mb-4 object-cover" />
 
@@ -101,7 +101,7 @@ $result_testimoni = mysqli_query($conn, $query);
                 </div>
                 <p class="text-gray-700 italic mb-4">“<?= htmlspecialchars($row['pesan']) ?>”</p>
                 <h4 class="font-semibold text-lg text-gray-900"><?= htmlspecialchars($row['nama']) ?></h4>
-                <span class="text-sm text-gray-500">alamat</span>
+                <span class="text-sm text-gray-500"><?= htmlspecialchars($row['alamat']) ?></span>
               </div>
             <?php endwhile; ?>
           <?php else: ?>
@@ -113,11 +113,8 @@ $result_testimoni = mysqli_query($conn, $query);
 
       <!-- Indicator -->
       <!-- Desktop -->
-      <div class="flex gap-2 justify-center desktop-dots">
-        <span class="dot w-2 h-2 bg-green-600 rounded-full"></span>
-        <span class="dot w-2 h-2 bg-gray-300 rounded-full"></span>
-        <span class="dot w-2 h-2 bg-gray-300 rounded-full"></span>
-      </div>
+      <div class="flex gap-2 justify-center desktop-dots" id="desktopDots"></div>
+
 
       <!-- Tombol navigasi -->
       <div class="flex flex-row gap-4 items-center justify-center">
@@ -170,11 +167,7 @@ $result_testimoni = mysqli_query($conn, $query);
 
       <!-- Indicator -->
       <!-- Mobile -->
-      <div class="flex gap-2 justify-center mt-4 mobile-dots">
-        <span class="dot w-2 h-2 bg-green-600 rounded-full"></span>
-        <span class="dot w-2 h-2 bg-gray-300 rounded-full"></span>
-        <span class="dot w-2 h-2 bg-gray-300 rounded-full"></span>
-      </div>
+      <div class="flex gap-2 justify-center mobile-dots" id="mobileDots"></div>
 
       <!-- Tombol navigasi -->
       <div class="flex gap-4 mt-4">
@@ -194,86 +187,113 @@ $result_testimoni = mysqli_query($conn, $query);
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     // Fungsi untuk inisialisasi carousel
-    function initCarousel(wrapperId, dotsSelector, prevBtnId, nextBtnId) {
+    function initCarousel(wrapperId, dotsContainerId, prevBtnId, nextBtnId) {
       const wrapper = document.getElementById(wrapperId);
-      const dots = document.querySelectorAll(dotsSelector);
+      const dotsContainer = document.getElementById(dotsContainerId);
       const prevBtn = document.getElementById(prevBtnId);
       const nextBtn = document.getElementById(nextBtnId);
 
-      if (!wrapper || !dots.length || !prevBtn || !nextBtn) {
-        console.error(`Carousel elements not found for ${wrapperId}. Check HTML structure.`);
-        return;
-      }
+      if (!wrapper || !dotsContainer || !prevBtn || !nextBtn) return;
 
-      const slides = wrapper.children;
-      const total = slides.length;
+      const originalSlides = Array.from(wrapper.children);
+      const originalSlidesLength = originalSlides.length;
 
-      // 🪄 Clone first & last slides for seamless looping
-      const firstClone = slides[0].cloneNode(true);
-      const lastClone = slides[total - 1].cloneNode(true);
+      // clone untuk looping
+      const firstClone = originalSlides[0].cloneNode(true);
+      const lastClone = originalSlides[originalSlidesLength - 1].cloneNode(true);
       wrapper.appendChild(firstClone);
-      wrapper.insertBefore(lastClone, slides[0]);
+      wrapper.insertBefore(lastClone, wrapper.firstChild);
 
-      let index = 1; // start di slide pertama (setelah clone)
-      const allSlides = wrapper.children;
-      const slideCount = allSlides.length;
-
-      // Set posisi awal
+      let index = 1;
       wrapper.style.transform = `translateX(-${index * 100}%)`;
-
       let isTransitioning = false;
       let autoSlideInterval;
+
+      // buat dot dinamis
+      const dotsArray = [];
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < originalSlidesLength; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'dot w-2 h-2 rounded-full bg-gray-300';
+        dot.addEventListener('click', () => showSlide(i + 1));
+        dotsContainer.appendChild(dot);
+        dotsArray.push(dot);
+      }
+function updateDotsWindow() {
+  const total = dotsArray.length;
+  let activeIndex = (index - 1 + total) % total; // index slide asli
+
+  const windowSize = 3;
+  let start, end;
+
+  if (total <= windowSize) {
+    // Kalau dot total <= window, tampilkan semua
+    start = 0;
+    end = total - 1;
+  } else {
+    // Geser window berdasarkan slide aktif
+    if (activeIndex < 1) {
+      start = 0;
+      end = windowSize - 1;
+    } else if (activeIndex > total - 2) {
+      end = total - 1;
+      start = end - (windowSize - 1);
+    } else {
+      start = activeIndex - 1;
+      end = activeIndex + 1;
+    }
+  }
+
+  dotsArray.forEach((dot, i) => {
+    // tampilkan hanya dot di window
+    dot.style.display = (i >= start && i <= end) ? 'inline-block' : 'none';
+
+    // update dot aktif
+    dot.classList.toggle('bg-green-600', i === activeIndex);
+    dot.classList.toggle('bg-gray-300', i !== activeIndex);
+  });
+}
+
+
+
 
       function showSlide(i) {
         if (isTransitioning) return;
         isTransitioning = true;
-
         index = i;
-        wrapper.style.transition = "transform 0.7s cubic-bezier(0.33,1,0.68,1)";
+        wrapper.style.transition = 'transform 0.7s cubic-bezier(0.33,1,0.68,1)';
         wrapper.style.transform = `translateX(-${index * 100}%)`;
-
-        // Update dots (hanya untuk slide asli)
-        dots.forEach((dot, dIndex) => {
-          const activeIndex = (index - 1 + total) % total;
-          dot.classList.toggle("bg-green-600", dIndex === activeIndex);
-          dot.classList.toggle("bg-gray-300", dIndex !== activeIndex);
-        });
+        updateDotsWindow();
       }
 
-      wrapper.addEventListener("transitionend", () => {
+      wrapper.addEventListener('transitionend', () => {
         isTransitioning = false;
+        const slidesCount = wrapper.children.length;
         if (index === 0) {
-          wrapper.style.transition = "none";
-          index = total;
+          wrapper.style.transition = 'none';
+          index = originalSlidesLength;
           wrapper.style.transform = `translateX(-${index * 100}%)`;
-        } else if (index === slideCount - 1) {
-          wrapper.style.transition = "none";
+        } else if (index === slidesCount - 1) {
+          wrapper.style.transition = 'none';
           index = 1;
           wrapper.style.transform = `translateX(-${index * 100}%)`;
         }
       });
 
+      prevBtn.addEventListener('click', () => showSlide(index - 1));
+      nextBtn.addEventListener('click', () => showSlide(index + 1));
+
+      wrapper.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+      wrapper.addEventListener('mouseleave', startAutoSlide);
+
       function startAutoSlide() {
         autoSlideInterval = setInterval(() => showSlide(index + 1), 5000);
       }
 
-      function stopAutoSlide() {
-        clearInterval(autoSlideInterval);
-      }
-
-      prevBtn.addEventListener("click", () => showSlide(index - 1));
-      nextBtn.addEventListener("click", () => showSlide(index + 1));
-
-      wrapper.addEventListener('mouseenter', stopAutoSlide);
-      wrapper.addEventListener('mouseleave', startAutoSlide);
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') showSlide(index - 1);
-        if (e.key === 'ArrowRight') showSlide(index + 1);
-      });
-
       startAutoSlide();
+      updateDotsWindow();
     }
+
 
     // Fungsi untuk memeriksa apakah elemen terlihat
     function isVisible(element) {
@@ -283,7 +303,8 @@ $result_testimoni = mysqli_query($conn, $query);
     // Inisialisasi untuk desktop
     const desktopWrapper = document.getElementById("testimonialWrapper");
     if (desktopWrapper && isVisible(desktopWrapper)) {
-      initCarousel("testimonialWrapper", ".desktop-dots .dot", "prevBtn", "nextBtn");
+      initCarousel("testimonialWrapper", "desktopDots", "prevBtn", "nextBtn");
+
     }
 
 
@@ -292,7 +313,7 @@ $result_testimoni = mysqli_query($conn, $query);
     // Inisialisasi untuk mobile
     const mobileWrapper = document.getElementById("testimonialWrapperMobile");
     if (mobileWrapper && isVisible(mobileWrapper)) {
-      initCarousel("testimonialWrapperMobile", ".mobile-dots .dot", "prevBtnMobile", "nextBtnMobile");
+      initCarousel("testimonialWrapperMobile", "mobileDots", "prevBtnMobile", "nextBtnMobile");
     }
   });
 
