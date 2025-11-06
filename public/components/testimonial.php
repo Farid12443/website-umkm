@@ -6,6 +6,8 @@ if (session_status() == PHP_SESSION_NONE) {
 
 include "../config/connection.php";
 
+$isLoggedIn = isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
+
 // Ambil data testimoni dan join ke tabel user
 $query = "SELECT t.*, u.nama, u.foto, u.alamat
           FROM testimoni t
@@ -30,7 +32,10 @@ $result_testimoni = mysqli_query($conn, $query);
         Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos.
         Clita erat ipsum et lorem et sit sed stet lorem sit clita duo justo.
       </p>
-      <button class="mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-md transition-all duration-300">
+      <button
+        id="tambahTestimoniBtn"
+        class="mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-md transition-all duration-300 <?php echo !$isLoggedIn ? 'opacity-50 cursor-not-allowed' : ''; ?>"
+        <?php echo !$isLoggedIn ? 'disabled' : ''; ?>>
         Tambah Testimoni
       </button>
 
@@ -219,40 +224,41 @@ $result_testimoni = mysqli_query($conn, $query);
         dotsContainer.appendChild(dot);
         dotsArray.push(dot);
       }
-function updateDotsWindow() {
-  const total = dotsArray.length;
-  let activeIndex = (index - 1 + total) % total; // index slide asli
 
-  const windowSize = 3;
-  let start, end;
+      function updateDotsWindow() {
+        const total = dotsArray.length;
+        let activeIndex = (index - 1 + total) % total; // index slide asli
 
-  if (total <= windowSize) {
-    // Kalau dot total <= window, tampilkan semua
-    start = 0;
-    end = total - 1;
-  } else {
-    // Geser window berdasarkan slide aktif
-    if (activeIndex < 1) {
-      start = 0;
-      end = windowSize - 1;
-    } else if (activeIndex > total - 2) {
-      end = total - 1;
-      start = end - (windowSize - 1);
-    } else {
-      start = activeIndex - 1;
-      end = activeIndex + 1;
-    }
-  }
+        const windowSize = 3;
+        let start, end;
 
-  dotsArray.forEach((dot, i) => {
-    // tampilkan hanya dot di window
-    dot.style.display = (i >= start && i <= end) ? 'inline-block' : 'none';
+        if (total <= windowSize) {
+          // Kalau dot total <= window, tampilkan semua
+          start = 0;
+          end = total - 1;
+        } else {
+          // Geser window berdasarkan slide aktif
+          if (activeIndex < 1) {
+            start = 0;
+            end = windowSize - 1;
+          } else if (activeIndex > total - 2) {
+            end = total - 1;
+            start = end - (windowSize - 1);
+          } else {
+            start = activeIndex - 1;
+            end = activeIndex + 1;
+          }
+        }
 
-    // update dot aktif
-    dot.classList.toggle('bg-green-600', i === activeIndex);
-    dot.classList.toggle('bg-gray-300', i !== activeIndex);
-  });
-}
+        dotsArray.forEach((dot, i) => {
+          // tampilkan hanya dot di window
+          dot.style.display = (i >= start && i <= end) ? 'inline-block' : 'none';
+
+          // update dot aktif
+          dot.classList.toggle('bg-green-600', i === activeIndex);
+          dot.classList.toggle('bg-gray-300', i !== activeIndex);
+        });
+      }
 
 
 
@@ -318,10 +324,17 @@ function updateDotsWindow() {
   });
 
   const modal = document.getElementById('modalTestimoni');
-  const btn = document.querySelector('button.bg-green-600');
+  const btn = document.getElementById('tambahTestimoniBtn');
   const closeModal = document.getElementById('tutupModal');
 
-  btn.addEventListener('click', () => modal.classList.remove('hidden'));
+  <?php if ($isLoggedIn): ?>
+    // Jika sudah login, tombol bisa buka modal
+    btn.addEventListener('click', () => modal.classList.remove('hidden'));
+  <?php else: ?>
+    // Jika belum login, tombol muncul alert
+    btn.addEventListener('click', () => alert('Silakan login terlebih dahulu untuk menambahkan testimoni.'));
+  <?php endif; ?>
+
   closeModal.addEventListener('click', () => modal.classList.add('hidden'));
 
   // Rating bintang interaktif
