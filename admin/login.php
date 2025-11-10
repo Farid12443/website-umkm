@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['admin_id'] = $admin['id_admin'];
                 $_SESSION['username'] = $admin['username'];
 
-                header("Location: dashboard.php");
+                header("Location: index.php");
                 exit();
             } else {
                 $error = 'Password salah';

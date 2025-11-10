@@ -17,14 +17,14 @@ $stmt->execute();
 $admin = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
-
-// Hitung total produk
-$stmt = $conn->prepare("SELECT COUNT(id_produk) as total FROM produk");
+// Hitung total produk (hanya yang aktif)
+$stmt = $conn->prepare("SELECT COUNT(id_produk) as total FROM produk WHERE status='active'");
 $stmt->execute();
 $totalProduk = $stmt->get_result()->fetch_assoc();
+$stmt->close();
 
-// Ambil semua produk
-$stmt = $conn->prepare("SELECT * FROM produk ORDER BY created_at DESC");
+// Ambil semua produk aktif
+$stmt = $conn->prepare("SELECT * FROM produk WHERE status='active' ORDER BY created_at DESC");
 $stmt->execute();
 $products = $stmt->get_result();
 $stmt->close();

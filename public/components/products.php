@@ -3,7 +3,8 @@
 include "../config/connection.php";
 
 // Ambil semua produk dari database
-$query = "SELECT * FROM produk ORDER BY created_at DESC";
+$query = "SELECT * FROM produk WHERE status = 'active' ORDER BY created_at DESC";
+
 $result = mysqli_query($conn, $query);
 
 // ubah jadi array assosiatif

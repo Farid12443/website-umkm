@@ -134,6 +134,7 @@ $result = mysqli_query($conn, $query);
                                     <span class="px-4 font-medium text-gray-800 qty"><?php echo $row['jumlah']; ?></span>
                                     <button class="px-3 py-1 text-gray-600 hover:bg-gray-100"
                                         onclick="updateQty(this, 1, <?php echo $row['harga']; ?>)">+</button>
+
                                 </div>
                                 <p class="font-semibold text-gray-800 text-lg subtotal">Rp <?php echo number_format($subtotal, 0, ',', '.'); ?></p>
 
@@ -366,6 +367,42 @@ $result = mysqli_query($conn, $query);
                     alert("Terjadi kesalahan koneksi ke server.");
                 });
         });
+
+        function updateQty(btn, change, harga) {
+            const qtySpan = btn.parentElement.querySelector(".qty");
+            let qty = parseInt(qtySpan.textContent);
+
+            qty += change;
+            if (qty < 1) qty = 1;
+            qtySpan.textContent = qty;
+
+            // Cari subtotal di sibling container
+            const subtotalElem = btn.closest(".flex.flex-col.sm\\:flex-row.items-start.sm\\:items-center.justify-between").querySelector(".subtotal");
+            const subtotal = qty * harga;
+            if (subtotalElem) subtotalElem.textContent = "Rp " + subtotal.toLocaleString("id-ID");
+
+            updateTotal();
+        }
+
+
+
+        function updateTotal() {
+            let total = 0;
+
+            document.querySelectorAll(".subtotal").forEach(el => {
+                // Ambil angka saja
+                const val = el.textContent.replace(/\D/g, '');
+                total += parseInt(val || 0);
+            });
+
+            // Update total harga
+            const totalHargaElem = document.getElementById("total-harga");
+            totalHargaElem.textContent = "Rp " + total.toLocaleString("id-ID");
+
+            // Update total bayar (+ ongkir 15.000)
+            const totalBayarElem = document.getElementById("total-bayar");
+            totalBayarElem.textContent = "Rp " + (total + 15000).toLocaleString("id-ID");
+        }
     </script>
 </body>
 
