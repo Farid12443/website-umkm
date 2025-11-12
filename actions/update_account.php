@@ -21,7 +21,7 @@ $query_user = mysqli_query($conn, "SELECT * FROM user WHERE id_user = '$id_user'
 $user = mysqli_fetch_assoc($query_user);
 
 // konfirmasi password
-if (!password_verify($password_lama, $user['password'])) {
+if (!password_verify($password_lama, $user['kata_sandi'])) {
     echo "<script>alert('Password lama salah!'); window.history.back();</script>";
     exit;
 }
@@ -37,10 +37,10 @@ $password_hash = password_hash($password_baru, PASSWORD_DEFAULT);
 
 // update data
 $update = mysqli_query($conn, "UPDATE user SET 
-    nama = '$nama', 
+    nama_lengkap = '$nama', 
     email = '$email', 
     alamat = '$alamat', 
-    password = '$password_hash' 
+    kata_sandi = '$password_hash' 
     WHERE id_user = '$id_user'
 ");
 

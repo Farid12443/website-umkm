@@ -119,7 +119,7 @@ $stmt->close();
                         </thead>
                         <tbody>
                             <?php while ($product = $products->fetch_assoc()): ?>
-                                <tr class="border-b hover:bg-gray-50">
+                                <tr class="border-t hover:bg-gray-50">
                                     <td class="px-4 py-2 text-sm text-gray-900"><?php echo $no++; ?></td>
                                     <td class="px-4 py-2 text-sm text-gray-900"><?php echo htmlspecialchars($product['nama_produk']); ?></td>
                                     <td class="px-4 py-2 text-sm text-gray-900">Rp <?php echo number_format($product['harga'], 0, ',', '.'); ?></td>

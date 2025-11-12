@@ -28,18 +28,10 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <div class="flex flex-col-reverse gap-4 md:flex-row md:items-center md:justify-between">
             <!-- Filter Buttons -->
             <div class="flex flex-wrap gap-3 justify-center md:justify-start">
-                <button class="px-6 py-2 rounded-full border border-gray-300 text-white bg-green-500 shadow-lg transition-all duration-300 ease-in-out">
-                    Semua produk
-                </button>
-                <button class="px-6 py-2 rounded-full border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 hover:shadow-md transition-all duration-300 ease-in-out">
-                    Premium
-                </button>
-                <button class="px-6 py-2 rounded-full border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 hover:shadow-md transition-all duration-300 ease-in-out">
-                    Organik
-                </button>
-                <button class="px-6 py-2 rounded-full border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 hover:shadow-md transition-all duration-300 ease-in-out">
-                    Murah
-                </button>
+                <button data-category="Semua" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-green-500 shadow-lg">Semua produk</button>
+                <button data-category="Premium" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-green-500 hover:shadow-lg">Premium</button>
+                <button data-category="Organik" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-green-500 hover:shadow-lg">Organik</button>
+                <button data-category="Murah" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-green-500 hover:shadow-lg">Murah</button>
             </div>
 
             <!-- Search Bar -->
@@ -55,45 +47,126 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
         </div>
 
         <!-- Produk List -->
-        <div class="flex overflow-x-auto space-x-6 snap-x snap-mandatory scrollbar-hide sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-8 sm:space-x-0 py-8">
-            <?php foreach ($products as $item) { ?>
-                <div class="min-w-[300px] sm:min-w-0 snap-center rounded-xl bg-white shadow-md hover:shadow-xl transform transition-all duration-300 ease-in-out hover:-translate-y-1 min-h-[400px] flex flex-col">
-                    <img src="../uploads/<?php echo $item['foto'] ?>"
-                        alt="<?php echo htmlspecialchars($item['nama_produk']) ?>"
-                        class="w-full h-48 object-cover rounded-t-xl">
+        <?php if (count($products) > 0): ?>
+            <div class="flex overflow-x-auto space-x-6 snap-x snap-mandatory scrollbar-hide sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-8 sm:space-x-0 py-8">
+                <?php foreach ($products as $item): ?>
+                    <div
+                        class="product-card min-w-[300px] sm:min-w-0 snap-center rounded-xl bg-white shadow-md hover:shadow-xl transform transition-all duration-300 ease-in-out hover:-translate-y-1 min-h-[400px] flex flex-col"
+                        data-category="<?php echo htmlspecialchars($item['kategori']); ?>">
+                        <img src="../uploads/<?php echo $item['foto'] ?>"
+                            alt="<?php echo htmlspecialchars($item['nama_produk']) ?>"
+                            class="w-full h-48 object-cover rounded-t-xl">
 
-                    <div class="flex flex-col justify-between p-4 flex-grow">
-                        <h1 class="text-lg font-semibold text-gray-800 mt-2 truncate">
-                            <?php echo htmlspecialchars($item['nama_produk']) ?>
-                        </h1>
-                        <span class="text-sm text-gray-500 font-bold mb-2">
-                            <?php echo htmlspecialchars($item['kategori']) ?>
-                        </span>
+                        <div class="flex flex-col justify-between p-4 flex-grow">
+                            <h1 class="text-lg font-semibold text-gray-800 mt-2 truncate">
+                                <?php echo htmlspecialchars($item['nama_produk']) ?>
+                            </h1>
+                            <span class="text-sm text-gray-500 font-bold mb-2">
+                                <?php echo htmlspecialchars($item['kategori']) ?>
+                            </span>
 
-                        <div class="flex justify-between items-center w-full mt-2">
-                            <div class="flex flex-col">
-                                <span class="text-green-600 text-sm">Harga</span>
-                                <span class="text-green-600 font-bold text-lg">
-                                    Rp<?php echo number_format($item['harga'], 0, ',', '.') ?>
-                                </span>
+                            <div class="flex justify-between items-center w-full mt-2">
+                                <div class="flex flex-col">
+                                    <span class="text-green-600 text-sm">Harga</span>
+                                    <span class="text-green-600 font-bold text-lg">
+                                        Rp<?php echo number_format($item['harga'], 0, ',', '.') ?>
+                                    </span>
+                                </div>
+                                <div class="flex flex-col text-end">
+                                    <span class="text-green-600 text-sm">Stok</span>
+                                    <span class="text-green-600 font-bold text-lg">
+                                        <?php echo $item['stok'] ?>
+                                    </span>
+                                </div>
                             </div>
-                            <div class="flex flex-col text-end">
-                                <span class="text-green-600 text-sm">Stok</span>
-                                <span class="text-green-600 font-bold text-lg">
-                                    <?php echo $item['stok'] ?>
-                                </span>
-                            </div>
+
+                            <form action="../actions/tambah_keranjang.php" method="POST" class="mt-auto">
+                                <input type="hidden" name="id_produk" value="<?php echo $item['id_produk']; ?>">
+                                <button type="submit" class="bg-[#FFB200] hover:bg-green-600 text-white p-2 rounded-lg transition w-full">
+                                    <i class="fa-solid fa-cart-plus"></i> Tambah
+                                </button>
+                            </form>
                         </div>
-                        <form action="../actions/tambah_keranjang.php" method="POST" class="mt-auto">
-                            <input type="hidden" name="id_produk" value="<?php echo $item['id_produk']; ?>">
-                            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white p-2 rounded-lg transition w-full">
-                                <i class="fa-solid fa-cart-plus"></i> Tambah
-                            </button>
-                        </form>
                     </div>
-                </div>
-            <?php } ?>
-        </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="w-full flex mt-12 flex-col justify-center items-center text-center py-20">
+                <h2 class="text-2xl font-semibold text-gray-700">Belum ada produk yang ditambahkan</h2>
+                <p class="text-gray-500 mt-2">Coba hubungi admin untuk info lebih lanjut.</p>
+            </div>
+        <?php endif; ?>
     </div>
-
 </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const buttons = document.querySelectorAll("button[data-category]");
+        const products = document.querySelectorAll(".product-card");
+        const searchInput = document.querySelector('input[type="text"]');
+        const searchButton = document.querySelector('button i.fa-magnifying-glass').parentElement;
+        const productSection = document.getElementById("products-section");
+
+        let currentCategory = "Semua";
+
+        //  Buat elemen pesan kosong (disembunyikan dulu)
+        const emptyMessage = document.createElement("div");
+        emptyMessage.className = "w-full flex  flex-col justify-center items-center text-center py-20";
+        emptyMessage.innerHTML = `
+            <h2 class="text-2xl font-semibold text-gray-700">Produk tidak ditemukan</h2>
+            <p class="text-gray-500 mt-2">Coba kategori atau kata kunci lain.</p>
+        `;
+        emptyMessage.style.display = "none";
+        productSection.appendChild(emptyMessage);
+
+        //  Fungsi filter
+        function filterProducts(category, searchTerm = "") {
+            currentCategory = category;
+            let visibleCount = 0;
+
+            // Ubah tombol aktif
+            buttons.forEach(b => b.classList.remove("bg-green-500", "text-white"));
+            const activeButton = Array.from(buttons).find(b => b.dataset.category === category);
+            if (activeButton) activeButton.classList.add("bg-green-500", "text-white");
+
+            // Filter produk
+            products.forEach(product => {
+                const productCategory = product.dataset.category.toLowerCase();
+                const productName = product.querySelector("h1").textContent.toLowerCase();
+
+                const matchesCategory = (category === "Semua" || productCategory === category.toLowerCase());
+                const matchesSearch = productName.includes(searchTerm.toLowerCase());
+
+                if (matchesCategory && matchesSearch) {
+                    product.style.display = "flex";
+                    visibleCount++;
+                } else {
+                    product.style.display = "none";
+                }
+            });
+
+            // Tampilkan atau sembunyikan pesan "tidak ditemukan"
+            emptyMessage.style.display = visibleCount === 0 ? "flex" : "none";
+        }
+
+        //  Jalankan saat pertama kali dibuka
+        filterProducts("Semua");
+
+        // Event tombol kategori
+        buttons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                filterProducts(btn.dataset.category, searchInput.value);
+            });
+        });
+
+        // Event search
+        searchButton.addEventListener("click", () => {
+            filterProducts(currentCategory, searchInput.value);
+        });
+
+        //  Event input (real-time search)
+        searchInput.addEventListener("input", () => {
+            filterProducts(currentCategory, searchInput.value);
+        });
+    });
+</script>

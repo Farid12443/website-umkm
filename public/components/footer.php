@@ -5,7 +5,7 @@
 
       <!-- Company info -->
       <div class="flex-1 mb-6 md:mb-0">
-        <h1 class="text-2xl font-bold mb-2">Sumber Tani</h1>
+        <h1 class="text-2xl font-bold mb-2">Saestu Eco</h1>
         <p class="text-sm mb-4 opacity-90">
           Berkomitmen menghadirkan beras premium pilihan, segar, dan berkualitas tinggi
           langsung dari petani lokal untuk keluarga Indonesia.
@@ -68,7 +68,7 @@
 
     <!-- Copyright -->
     <div class="w-full text-center md:mt-8 md:text-right pt-4 md:pt-0 md:w-auto">
-      <p class="text-sm opacity-75">&copy; 2025 Sumber Tani. Semua hak dilindungi.</p>
+      <p class="text-sm opacity-75">&copy; 2025 Saestu Eco. Semua hak dilindungi.</p>
     </div>
   </div>
 </section>

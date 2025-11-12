@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
         $user = mysqli_fetch_assoc($result);
 
         // cek password
-        if (password_verify($password, $user['password'])) {
+        if (password_verify($password, $user['kata_sandi'])) {
 
             
             $_SESSION['user_id'] = $user['id_user']; 

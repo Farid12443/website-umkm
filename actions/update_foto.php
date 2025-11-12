@@ -17,7 +17,7 @@ if (isset($_FILES['foto'])) {
 
     if (move_uploaded_file($file_tmp, $target_file)) {
         // update footo database
-        $query = "UPDATE user SET foto = '$file_name' WHERE id_user = '$user_id'";
+        $query = "UPDATE user SET foto_profil = '$file_name' WHERE id_user = '$user_id'";
         if (mysqli_query($conn, $query)) {
             echo "<script>alert('Foto profil berhasil diperbarui!'); window.location='../public/profil.php';</script>";
         } else {

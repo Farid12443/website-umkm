@@ -3,6 +3,11 @@ session_start();
 include "../config/connection.php";
 
 if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+if (!isset($_SESSION['user_id'])) {
     $id = null;
     $user = ['foto' => 'default.jpg'];
     $total_item = 0;
@@ -32,8 +37,8 @@ $total_item = $cart['total'] ?? 0;
         <!-- desktop menu -->
         <ul class="hidden md:flex items-center gap-10 font-medium text-gray-700">
             <li><a href="#" class="hover:text-orange-500 transition-colors duration-200">Home</a></li>
-            <li><a href="#" class="hover:text-orange-500 transition-colors duration-200">Produk</a></li>
-            <li><a href="#" class="hover:text-orange-500 transition-colors duration-200">Tentang Kami</a></li>
+            <li><a href="#products-section" class="hover:text-orange-500 transition-colors duration-200">Produk</a></li>
+            <li><a href="#about-section" class="hover:text-orange-500 transition-colors duration-200">Tentang Kami</a></li>
             <li><a href="#testimonial" class="hover:text-orange-500 transition-colors duration-200">Testimmoni</a></li>
         </ul>
 
@@ -103,8 +108,8 @@ $total_item = $cart['total'] ?? 0;
             <!-- menu items -->
             <ul class="flex-1 flex flex-col space-y-0 py-6 px-4">
                 <li><a href="#" class="hover:text-orange-500 px-4 py-4 block border-b border-gray-100 last:border-b-0 text-gray-700 font-medium transition-colors duration-200 hover:bg-gray-50 rounded-lg">Home</a></li>
-                <li><a href="#" class="hover:text-orange-500 px-4 py-4 block border-b border-gray-100 last:border-b-0 text-gray-700 font-medium transition-colors duration-200 hover:bg-gray-50 rounded-lg">Produk</a></li>
-                <li><a href="#" class="hover:text-orange-500 px-4 py-4 block border-b border-gray-100 last:border-b-0 text-gray-700 font-medium transition-colors duration-200 hover:bg-gray-50 rounded-lg">Tentang Kami</a></li>
+                <li><a href="#products-section" class="hover:text-orange-500 px-4 py-4 block border-b border-gray-100 last:border-b-0 text-gray-700 font-medium transition-colors duration-200 hover:bg-gray-50 rounded-lg">Produk</a></li>
+                <li><a href="#about-section" class="hover:text-orange-500 px-4 py-4 block border-b border-gray-100 last:border-b-0 text-gray-700 font-medium transition-colors duration-200 hover:bg-gray-50 rounded-lg">Tentang Kami</a></li>
                 <li><a href="#testimonial" class="hover:text-orange-500 px-4 py-4 block border-b border-gray-100 last:border-b-0 text-gray-700 font-medium transition-colors duration-200 hover:bg-gray-50 rounded-lg">Testimmoni</a></li>
             </ul>
 
@@ -120,29 +125,42 @@ $total_item = $cart['total'] ?? 0;
     const closeMenuBtn = document.getElementById('close-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const overlay = document.getElementById('overlay');
+    const menuIcon = menuBtn.querySelector('.menu-icon');
+    const closeIcon = menuBtn.querySelector('.close-icon');
+    const menuLinks = mobileMenu.querySelectorAll('a'); // ambil semua link di dalam menu
 
-    menuBtn.addEventListener('click', () => {
-        mobileMenu.classList.remove('-translate-x-full');
-        overlay.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-    });
-
-    closeMenuBtn.addEventListener('click', () => {
+    // Fungsi umum untuk menutup menu
+    function closeMenu() {
         mobileMenu.classList.add('-translate-x-full');
         overlay.classList.add('hidden');
         document.body.style.overflow = 'auto';
-    });
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+    }
 
-    overlay.addEventListener('click', () => {
-        mobileMenu.classList.add('-translate-x-full');
-        overlay.classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    });
-
+    // Buka/tutup lewat tombol hamburger
     menuBtn.addEventListener('click', () => {
-        const menuIcon = menuBtn.querySelector('.menu-icon');
-        const closeIcon = menuBtn.querySelector('.close-icon');
-        menuIcon.classList.toggle('hidden');
-        closeIcon.classList.toggle('hidden');
+        const isOpen = !mobileMenu.classList.contains('-translate-x-full');
+
+        if (isOpen) {
+            closeMenu();
+        } else {
+            mobileMenu.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            menuIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+        }
+    });
+
+    // Tutup lewat tombol X
+    closeMenuBtn.addEventListener('click', closeMenu);
+
+    // Tutup lewat overlay
+    overlay.addEventListener('click', closeMenu);
+
+    // Tutup otomatis saat klik link di menu
+    menuLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
     });
 </script>

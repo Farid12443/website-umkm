@@ -20,9 +20,9 @@ $stmt = $conn->prepare("UPDATE produk SET status = 'inactive' WHERE id_produk = 
 $stmt->bind_param("i", $idProduct);
 
 if ($stmt->execute()) {
-    echo "<script>alert('Produk berhasil dinonaktifkan!'); window.location='index.php';</script>";
+    echo "<script>alert('Produk berhasil dihapus!'); window.location='index.php';</script>";
 } else {
-    echo "<script>alert('Produk gagal dinonaktifkan!'); window.location='index.php';</script>";
+    echo "<script>alert('Produk gagal dihapus!'); window.location='index.php';</script>";
 }
 
 $stmt->close();

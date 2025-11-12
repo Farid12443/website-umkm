@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     $alamat = $_POST['alamat'];
     $no_hp = $_POST['no_hp'];
 
-    $query = "INSERT INTO user (nama, email, password, alamat, no_hp) 
+    $query = "INSERT INTO user (nama_lengkap, email, kata_sandi, alamat, nomor_hp) 
               VALUES ('$nama', '$email', '$password', '$alamat', '$no_hp')";
 
     if (mysqli_query($conn, $query)) {

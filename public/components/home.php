@@ -10,9 +10,10 @@
                 <p class="text-2xl text-left font-medium text-gray-700">
                     Dari petani lokal, langsung ke meja makan Anda. Nikmati beras pilihan yang pulen, sehat, dan terjangkau — diproses dengan teliti oleh petani berpengalaman.
                 </p>
-                <button class="px-6 py-2 w-50 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition">
+                <button class="px-6 py-2 w-50 bg-[#FFA600] text-white rounded-lg shadow hover:bg-orange-600 transition">
                     Selengkapnya
                 </button>
+
             </div>
         </div>
 

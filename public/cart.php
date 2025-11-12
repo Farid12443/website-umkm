@@ -214,7 +214,7 @@ $result = mysqli_query($conn, $query);
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
                                 <input type="text" name="nama" id="nama"
-                                    value="<?php echo htmlspecialchars($data_user['nama']); ?>"
+                                    value="<?php echo htmlspecialchars($data_user['nama_lengkap']); ?>"
                                     class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
                                     required>
                             </div>
@@ -230,7 +230,7 @@ $result = mysqli_query($conn, $query);
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">No HP</label>
                                 <input type="text" name="no_hp" id="no_hp"
-                                    value="<?php echo htmlspecialchars($data_user['no_hp']); ?>"
+                                    value="<?php echo htmlspecialchars($data_user['nomor_hp']); ?>"
                                     class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
                                     required>
                             </div>
@@ -375,6 +375,23 @@ $result = mysqli_query($conn, $query);
             qty += change;
             if (qty < 1) qty = 1;
             qtySpan.textContent = qty;
+
+            // Kirim update ke server
+            fetch("../actions/update_qty.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: `id_keranjang=${btn.parentElement.dataset.id}&jumlah=${qty}`
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status !== "success") {
+                        alert("Gagal memperbarui jumlah di server!");
+                    }
+                })
+                .catch(err => console.error("Error:", err));
+
 
             // Cari subtotal di sibling container
             const subtotalElem = btn.closest(".flex.flex-col.sm\\:flex-row.items-start.sm\\:items-center.justify-between").querySelector(".subtotal");

@@ -9,7 +9,7 @@ include "../config/connection.php";
 $isLoggedIn = isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
 
 // Ambil data testimoni dan join ke tabel user
-$query = "SELECT t.*, u.nama, u.foto, u.alamat
+$query = "SELECT t.*, u.nama_lengkap, u.foto_profil, u.alamat
           FROM testimoni t
           JOIN user u ON t.id_user = u.id_user
           ORDER BY t.tanggal DESC";
@@ -19,8 +19,8 @@ $result_testimoni = mysqli_query($conn, $query);
 
 
 
-<section id="testimonial" class="max-w-7xl mx-auto">
-  <div class="flex flex-col gap-12 my-12 md:grid grid-cols-5 md:mt-8 items-center justify-between px-8 py-18 md:pb-0 md:px-32 rounded-2xl">
+<section id="testimonial" class="max-w-7xl mx-auto bg">
+  <div class="flex flex-col gap-12 bg-[#F5F2E7] md:grid grid-cols-5 md:items-center justify-between px-8 pt-18 md:pb-12 md:px-32 rounded-2xl">
     <!-- kanan -->
     <div class="col-span-2">
       <p class="text-green-600 font-semibold text-lg">Testimonial</p>
@@ -34,7 +34,7 @@ $result_testimoni = mysqli_query($conn, $query);
       </p>
       <button
         id="tambahTestimoniBtn"
-        class="mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-md transition-all duration-300 <?php echo !$isLoggedIn ? 'opacity-50 cursor-not-allowed' : ''; ?>"
+        class="mt-4 px-6 py-3 bg-[#41994E] hover:bg-green-700 text-white rounded-lg shadow-md transition-all duration-300 <?php echo !$isLoggedIn ? 'opacity-50 cursor-not-allowed' : ''; ?>"
         <?php echo !$isLoggedIn ? 'disabled' : ''; ?>>
         Tambah Testimoni
       </button>
@@ -85,9 +85,9 @@ $result_testimoni = mysqli_query($conn, $query);
 
           <?php if (mysqli_num_rows($result_testimoni) > 0): ?>
             <?php while ($row = mysqli_fetch_assoc($result_testimoni)): ?>
-              <div class="min-w-full card">
+              <div class="min-w-full card bg-white p-4 rounded-2xl">
                 <div class="flex flex-row items-start justify-between">
-                  <img src="../uploads/<?= htmlspecialchars($row['foto']) ?>"
+                  <img src="../uploads/<?= htmlspecialchars($row['foto_profil']) ?>"
                     alt="Foto pelanggan"
                     class="w-20 h-20 rounded-xl mb-4 object-cover" />
 
@@ -105,7 +105,7 @@ $result_testimoni = mysqli_query($conn, $query);
                   </div>
                 </div>
                 <p class="text-gray-700 italic mb-4">“<?= htmlspecialchars($row['pesan']) ?>”</p>
-                <h4 class="font-semibold text-lg text-gray-900"><?= htmlspecialchars($row['nama']) ?></h4>
+                <h4 class="font-semibold text-lg text-gray-900"><?= htmlspecialchars($row['nama_lengkap']) ?></h4>
                 <span class="text-sm text-gray-500"><?= htmlspecialchars($row['alamat']) ?></span>
               </div>
             <?php endwhile; ?>
@@ -141,9 +141,9 @@ $result_testimoni = mysqli_query($conn, $query);
           ?>
           <?php if (mysqli_num_rows($result_testimoni) > 0): ?>
             <?php while ($row = mysqli_fetch_assoc($result_testimoni)): ?>
-              <div class="min-w-full card rounded-2xl">
+              <div class="min-w-full card  bg-white p-4 rounded-2xl">
                 <div class="flex items-start justify-between mb-3">
-                  <img src="https://via.placeholder.com/80" alt="Foto pelanggan"
+                 <img src="../uploads/<?= htmlspecialchars($row['foto_profil']) ?>" alt="Foto pelanggan"
                     class="w-16 h-16 rounded-xl object-cover" />
                   <div class="text-right">
                     <div class="flex items-center mb-1 text-yellow-400">
@@ -159,7 +159,7 @@ $result_testimoni = mysqli_query($conn, $query);
                   </div>
                 </div>
                 <p class="text-gray-700 italic mb-3">“<?= htmlspecialchars($row['pesan']) ?>”</p>
-                <h4 class="font-semibold text-gray-900"><?= htmlspecialchars($row['nama']) ?></h4>
+                <h4 class="font-semibold text-gray-900"><?= htmlspecialchars($row['nama_lengkap']) ?></h4>
                 <span class="text-sm text-gray-500">Pelanggan</span>
               </div>
             <?php endwhile; ?>
@@ -172,7 +172,7 @@ $result_testimoni = mysqli_query($conn, $query);
 
       <!-- Indicator -->
       <!-- Mobile -->
-      <div class="flex gap-2 justify-center mobile-dots" id="mobileDots"></div>
+      <div class="flex gap-2 pt-4 justify-center mobile-dots" id="mobileDots"></div>
 
       <!-- Tombol navigasi -->
       <div class="flex gap-4 mt-4">
