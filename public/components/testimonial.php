@@ -23,14 +23,13 @@ $result_testimoni = mysqli_query($conn, $query);
   <div class="flex flex-col gap-12 bg-[#F5F2E7] md:grid grid-cols-5 md:items-center justify-between px-8 pt-18 md:pb-12 md:px-32 rounded-2xl">
     <!-- kanan -->
     <div class="col-span-2">
-      <p class="text-green-600 font-semibold text-lg">Testimonial</p>
+      <p class="text-green-600 font-semibold text-lg">Testimoni Pelanggan</p>
       <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-        What Our Clients <br />
-        <span class="text-green-700">Say About Us!</span>
+        Apa Kata <br />
+        <span class="text-green-700">Pelanggan Kami</span>
       </h2>
       <p class="text-gray-700 leading-relaxed">
-        Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos.
-        Clita erat ipsum et lorem et sit sed stet lorem sit clita duo justo.
+        Kami percaya kualitas beras terbaik datang dari proses alami. Inilah pendapat pelanggan yang telah merasakan pulen dan harumnya beras pilihan dari petani kami.
       </p>
       <button
         id="tambahTestimoniBtn"
@@ -38,7 +37,6 @@ $result_testimoni = mysqli_query($conn, $query);
         <?php echo !$isLoggedIn ? 'disabled' : ''; ?>>
         Tambah Testimoni
       </button>
-
       <!-- Modal -->
       <div id="modalTestimoni"
         class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm items-center justify-center z-50 p-4">
@@ -143,7 +141,7 @@ $result_testimoni = mysqli_query($conn, $query);
             <?php while ($row = mysqli_fetch_assoc($result_testimoni)): ?>
               <div class="min-w-full card  bg-white p-4 rounded-2xl">
                 <div class="flex items-start justify-between mb-3">
-                 <img src="../uploads/<?= htmlspecialchars($row['foto_profil']) ?>" alt="Foto pelanggan"
+                  <img src="../uploads/<?= htmlspecialchars($row['foto_profil']) ?>" alt="Foto pelanggan"
                     class="w-16 h-16 rounded-xl object-cover" />
                   <div class="text-right">
                     <div class="flex items-center mb-1 text-yellow-400">

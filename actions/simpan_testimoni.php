@@ -7,7 +7,6 @@ if (isset($_POST['id_user']) && isset($_POST['rating']) && isset($_POST['pesan']
     $rating = $_POST['rating'];
     $pesan = $_POST['pesan'];
 
-    // Validasi rating biar 1–5 aja
     if ($rating < 1 || $rating > 5) {
         echo "<script>alert('Rating harus antara 1 sampai 5!'); window.history.back();</script>";
         exit;
