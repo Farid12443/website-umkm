@@ -28,10 +28,10 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <div class="flex flex-col-reverse gap-4 md:flex-row md:items-center md:justify-between">
             <!-- Filter Buttons -->
             <div class="flex flex-wrap gap-3 justify-center md:justify-start">
-                <button data-category="Semua" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-green-500 shadow-lg">Semua produk</button>
-                <button data-category="Premium" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-green-500 hover:shadow-lg">Premium</button>
-                <button data-category="Organik" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-green-500 hover:shadow-lg">Organik</button>
-                <button data-category="Murah" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-green-500 hover:shadow-lg">Murah</button>
+                <button data-category="Semua" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-[#FFB200] shadow-lg">Semua produk</button>
+                <button data-category="Premium" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-[#FFB200] hover:shadow-lg">Premium</button>
+                <button data-category="Organik" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-[#FFB200] hover:shadow-lg">Organik</button>
+                <button data-category="Murah" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-[#FFB200] hover:shadow-lg">Murah</button>
             </div>
 
             <!-- Search Bar -->
@@ -125,9 +125,9 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
             let visibleCount = 0;
 
             // Ubah tombol aktif
-            buttons.forEach(b => b.classList.remove("bg-green-500", "text-white"));
+            buttons.forEach(b => b.classList.remove("bg-[#FFB200]", "text-white"));
             const activeButton = Array.from(buttons).find(b => b.dataset.category === category);
-            if (activeButton) activeButton.classList.add("bg-green-500", "text-white");
+            if (activeButton) activeButton.classList.add("bg-[#FFB200]", "text-white");
 
             // Filter produk
             products.forEach(product => {

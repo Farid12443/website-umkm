@@ -26,14 +26,14 @@ $result_testimoni = mysqli_query($conn, $query);
       <p class="text-green-600 font-semibold text-lg">Testimoni Pelanggan</p>
       <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
         Apa Kata <br />
-        <span class="text-green-700">Pelanggan Kami</span>
+        <span class="text-[#FFB200]">Pelanggan Kami</span>
       </h2>
       <p class="text-gray-700 leading-relaxed">
         Kami percaya kualitas beras terbaik datang dari proses alami. Inilah pendapat pelanggan yang telah merasakan pulen dan harumnya beras pilihan dari petani kami.
       </p>
       <button
         id="tambahTestimoniBtn"
-        class="mt-4 px-6 py-3 bg-[#41994E] hover:bg-green-700 text-white rounded-lg shadow-md transition-all duration-300 <?php echo !$isLoggedIn ? 'opacity-50 cursor-not-allowed' : ''; ?>"
+        class="mt-4 px-6 py-3 bg-[#FFB200] hover:bg-green-700 text-white rounded-lg shadow-md transition-all duration-300 <?php echo !$isLoggedIn ? 'opacity-50 cursor-not-allowed' : ''; ?>"
         <?php echo !$isLoggedIn ? 'disabled' : ''; ?>>
         Tambah Testimoni
       </button>
@@ -217,7 +217,7 @@ $result_testimoni = mysqli_query($conn, $query);
       dotsContainer.innerHTML = '';
       for (let i = 0; i < originalSlidesLength; i++) {
         const dot = document.createElement('span');
-        dot.className = 'dot w-2 h-2 rounded-full bg-gray-300';
+        dot.className = 'dot w-2 h-2 rounded-full bg-[#FFB200]';
         dot.addEventListener('click', () => showSlide(i + 1));
         dotsContainer.appendChild(dot);
         dotsArray.push(dot);
