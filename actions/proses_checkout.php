@@ -36,8 +36,8 @@ while ($row = mysqli_fetch_assoc($query_cart)) {
     }
 }
 
-// Reset pointer
-mysqli_data_seek($query_cart, 0);
+// Reset pointer 
+mysqli_data_seek($query_cart, 0); 
 
 // Hitung total
 $total_harga = 0;
@@ -77,3 +77,4 @@ mysqli_query($conn, "DELETE FROM keranjang WHERE id_user = '$id_user'");
 // ✅ kirim respon JSON ke fetch
 echo json_encode(["status" => "success"]);
 exit;
+

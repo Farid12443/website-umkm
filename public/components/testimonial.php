@@ -25,7 +25,7 @@ $result_testimoni = mysqli_query($conn, $query);
     <div class="col-span-2">
       <p class="text-green-600 font-semibold text-lg">Testimoni Pelanggan</p>
       <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-        Apa Kata <br />
+        Apa Kata <br/>
         <span class="text-[#FFB200]">Pelanggan Kami</span>
       </h2>
       <p class="text-gray-700 leading-relaxed">
