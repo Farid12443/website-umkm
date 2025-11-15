@@ -74,7 +74,7 @@ $stmt->close();
                 <p class="text-3xl font-bold text-green-600 mt-2">
                     <?php
                     // Total stok
-                    $stmt = $conn->prepare("SELECT SUM(stok) as total_stock FROM produk");
+                    $stmt = $conn->prepare("SELECT SUM(stok) AS total_stock FROM produk WHERE status = 'active'");
                     $stmt->execute();
                     $stock = $stmt->get_result()->fetch_assoc();
                     echo $stock['total_stock'] ?? 0;
@@ -86,7 +86,7 @@ $stmt->close();
                 <h3 class="text-gray-600 text-sm font-medium">Total Nilai</h3>
                 <p class="text-3xl font-bold text-purple-600 mt-2">
                     Rp <?php
-                        $stmt = $conn->prepare("SELECT SUM(harga * stok) as total_value FROM produk");
+                        $stmt = $conn->prepare("SELECT SUM(harga * stok) as total_value FROM produk WHERE status='active'");
                         $stmt->execute();
                         $value = $stmt->get_result()->fetch_assoc();
                         $stmt->close();

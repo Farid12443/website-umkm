@@ -1,7 +1,7 @@
 <div id="custom-carousel" class="relative w-full h-[70vh] md:h-[600px] overflow-hidden rounded-b-2xl">
     <!-- Slide 1 -->
     <div class="carousel-item absolute inset-0 opacity-100 transition-opacity duration-1000 ease-in-out">
-        <img src="images/ad.png" alt="Slide 1" class="w-full h-full object-cover">
+        <img src="images/pengeringan.png" alt="Slide 1" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center text-white px-6">
             <h2 class="text-3xl md:text-5xl font-bold mb-4">Tentang Kami</h2>
             <p class="text-base md:text-xl mb-6 max-w-xl">
@@ -16,22 +16,22 @@
 
     <!-- Slide 2 -->
     <div class="carousel-item absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out">
-        <img src="images/beras2.jpg" alt="Slide 2" class="w-full h-full object-cover">
+        <img src="images/pemilihan.png" alt="Slide 2" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center text-white px-6">
             <h2 class="text-3xl md:text-5xl font-bold mb-4">Kualitas Terbaik</h2>
             <p class="text-base md:text-xl mb-6 max-w-xl">
                 Proses penggilingan modern untuk hasil yang bersih dan pulen.
             </p>
-            <button onclick="scrollToSection('produk')"
+            <a href="components/products.php#products-section"
                 class="bg-amber-400 hover:bg-amber-500 text-black font-semibold px-5 py-2 md:px-6 md:py-3 rounded-full transition">
                 Lihat Produk
-            </button>
+            </a>
         </div>
     </div>
 
     <!-- Slide 3 -->
     <div class="carousel-item absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out">
-        <img src="images/petani.jpg" alt="Slide 3" class="w-full h-full object-cover">
+        <img src="images/penggilingan.png" alt="Slide 3" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center text-white px-6">
             <h2 class="text-3xl md:text-5xl font-bold mb-4">Dari Petani Untuk Anda</h2>
             <p class="text-base md:text-xl mb-6 max-w-xl">

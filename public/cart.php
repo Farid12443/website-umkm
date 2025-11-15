@@ -318,7 +318,6 @@ $result = mysqli_query($conn, $query);
             successModal.classList.add('hidden');
         });
 
-        // FORM CHECKOUT AJAX
         const confirmCheckout = document.getElementById("confirmCheckout");
         const checkoutForm = document.querySelector("#checkoutModal form");
 
@@ -353,7 +352,6 @@ $result = mysqli_query($conn, $query);
                             });
                         }
 
-                        // Setelah modal sukses ditutup, reload halaman agar PHP menampilkan tampilan keranjang kosong
                         closeSuccessModal.addEventListener("click", () => {
                             window.location.reload();
                         });
@@ -376,7 +374,6 @@ $result = mysqli_query($conn, $query);
             if (qty < 1) qty = 1;
             qtySpan.textContent = qty;
 
-            // Kirim update ke server
             fetch("../actions/update_qty.php", {
                     method: "POST",
                     headers: {
@@ -393,7 +390,6 @@ $result = mysqli_query($conn, $query);
                 .catch(err => console.error("Error:", err));
 
 
-            // Cari subtotal di sibling container
             const subtotalElem = btn.closest(".flex.flex-col.sm\\:flex-row.items-start.sm\\:items-center.justify-between").querySelector(".subtotal");
             const subtotal = qty * harga;
             if (subtotalElem) subtotalElem.textContent = "Rp " + subtotal.toLocaleString("id-ID");

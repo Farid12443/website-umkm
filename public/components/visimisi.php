@@ -1,4 +1,4 @@
- <div>
+ <div class="px-8 py-8 md:px-32 rounded-2xl">
      <div class="text-start mb-16">
          <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-4 leading-tight">Visi & Misi</h2>
      </div>

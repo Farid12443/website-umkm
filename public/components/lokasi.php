@@ -1,5 +1,5 @@
- <div class="py-1">
-     <div class="mx-auto">
+ <div class="bg-[#DBDBDB]">
+     <div class="py-16 px-8 md:px-32 rounded-2xl">
          <!-- Judul -->
          <div class="text-start mb-16">
              <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-4 leading-tight">Lokasi & Kontak</h2>
@@ -19,8 +19,7 @@
                      <div>
                          <h3 class="text-2xl font-semibold text-gray-900 mb-1">Alamat</h3>
                          <p class="text-gray-700 leading-relaxed">
-                             Jl. Raya Reksosari No.12, Kecamatan Suruh, Kabupaten Semarang,
-                             Jawa Tengah 50776
+                           Rejosari, Medayu, Kec. Suruh, Kabupaten Semarang, Jawa Tengah 50776
                          </p>
                      </div>
                  </div>
@@ -42,7 +41,7 @@
                              <a
                                  href="tel:+6281234567890"
                                  class="text-gray-700 hover:text-green-600 transition-colors">
-                                 <span class="font-medium">Telepon:</span> +62 812-3456-7890
+                                 <span class="font-medium">Telepon:</span> +62 821-3747-2779
                              </a>
                          </li>
 
@@ -56,7 +55,7 @@
                              <a
                                  href="mailto:info@umkmberas.id"
                                  class="text-gray-700 hover:text-blue-600 transition-colors">
-                                 <span class="font-medium">Email:</span> info@umkmberas.id
+                                 <span class="font-medium">Email:</span> faridislamudin340@gmail.com
                              </a>
                          </li>
 
@@ -72,7 +71,7 @@
                                  target="_blank"
                                  rel="noopener noreferrer"
                                  class="text-gray-700 hover:text-pink-600 transition-colors">
-                                 <span class="font-medium">Instagram:</span> @umkmberas
+                                 <span class="font-medium">Instagram:</span> @udmakmurberas
                              </a>
                          </li>
                      </ul>
@@ -82,13 +81,12 @@
              <!-- Peta -->
              <div
                  class="md:order-1 order-2 w-full h-96 md:h-auto rounded-2xl overflow-hidden shadow-lg">
-                 <iframe
-                     class="w-full h-full border-0"
-                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.074812345678!2d110.4412345!3d-7.567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a1234567890ab%3A0xabcdef123456789!2sKantor%20UMKM%20Beras!5e0!3m2!1sid!2sid!4v1700000000000"
-                     allowfullscreen=""
-                     loading="lazy"
-                     referrerpolicy="no-referrer-when-downgrade"
-                     title="Lokasi Kantor UMKM Beras"></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d149743.17907644456!2d110.41593621899239!3d-7.3936642834308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a779470fcee69%3A0x51df5c45e5002739!2sUd.%20Sido%20Makmur!5e0!3m2!1sid!2sid!4v1763182807454!5m2!1sid!2sid"
+                class="w-full h-full border-0"
+                allowfullscreen=""
+                loading="lazy" r
+                eferrerpolicy="no-referrer-when-downgrade">
+                </iframe>
              </div>
          </div>
      </div>

@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
             $_SESSION['nama'] = $user['nama'];
             $_SESSION['email'] = $user['email'];
 
-            echo "<script>alert('Login berhasil! Selamat datang, " . $user['nama'] . "'); window.location='index.php';</script>";
+            echo "<script>alert('Login berhasil! Selamat datang, " . $user['nama_lengkap'] . "'); window.location='index.php';</script>";
         } else {
             echo "<script>alert('Kata sandi salah!');</script>";
         }

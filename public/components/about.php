@@ -11,7 +11,7 @@
         <div class="flex flex-col py-2 md:flex-row items-center justify-between gap-8 rounded-2xl ">
             <!-- Gambar -->
             <div class="flex-1 flex ">
-                <img src="images/ad.png"
+                <img src="images/gambar.png"
                     alt="Gambar"
                     class="w-full max-w-sm object-cover rounded-xl">
             </div>
@@ -54,9 +54,9 @@
 
 </section>
 
-<section class="max-w-7xl mx-auto hidden pt-18" id="full-about-section">
+<section class="max-w-7xl mx-auto bg-[#f5f2e7] hidden pt-18" id="full-about-section">
     <?php include "components/carousel.php"; ?>
-    <div class="flex flex-col md:flex-col justify-between px-8 py-8 md:px-32 rounded-2xl">
+    <div class="flex flex-col md:flex-col justify-between">
         <!-- tentang kami -->
         <?php include "components/aboutsection.php"; ?>
 

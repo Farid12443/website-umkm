@@ -121,10 +121,10 @@ $result_testimoni = mysqli_query($conn, $query);
 
       <!-- Tombol navigasi -->
       <div class="flex flex-row gap-4 items-center justify-center">
-        <button id="prevBtn" class="w-10 h-10 bg-green-100 hover:bg-green-200 text-green-600 rounded-full flex items-center justify-center transition" aria-label="Previous testimonial">
+        <button id="prevBtn" class="w-10 h-10 bg-green-100 hover:bg-green-200 text-[#FFB200] rounded-full flex items-center justify-center transition" aria-label="Previous testimonial">
           <i class="fa-solid fa-chevron-left text-lg"></i>
         </button>
-        <button id="nextBtn" class="w-10 h-10 bg-green-100 hover:bg-green-200 text-green-600 rounded-full flex items-center justify-center transition" aria-label="Next testimonial">
+        <button id="nextBtn" class="w-10 h-10 bg-green-100 hover:bg-green-200 text-[#FFB200] rounded-full flex items-center justify-center transition" aria-label="Next testimonial">
           <i class="fa-solid fa-chevron-right text-lg"></i>
         </button>
       </div>
@@ -174,10 +174,10 @@ $result_testimoni = mysqli_query($conn, $query);
 
       <!-- Tombol navigasi -->
       <div class="flex gap-4 mt-4">
-        <button id="prevBtnMobile" class="w-10 h-10 bg-green-100 hover:bg-green-200 text-green-600 rounded-full flex items-center justify-center transition">
+        <button id="prevBtnMobile" class="w-10 h-10 bg-green-100 hover:bg-green-200 text-[#FFB200] rounded-full flex items-center justify-center transition">
           <i class="fa-solid fa-chevron-left text-lg"></i>
         </button>
-        <button id="nextBtnMobile" class="w-10 h-10 bg-green-100 hover:bg-green-200 text-green-600 rounded-full flex items-center justify-center transition">
+        <button id="nextBtnMobile" class="w-10 h-10 bg-green-100 hover:bg-green-200 text-[#FFB200] rounded-full flex items-center justify-center transition">
           <i class="fa-solid fa-chevron-right text-lg"></i>
         </button>
       </div>
@@ -253,7 +253,7 @@ $result_testimoni = mysqli_query($conn, $query);
           dot.style.display = (i >= start && i <= end) ? 'inline-block' : 'none';
 
           // update dot aktif
-          dot.classList.toggle('bg-green-600', i === activeIndex);
+          dot.classList.toggle('bg-[#FFB200]', i === activeIndex);
           dot.classList.toggle('bg-gray-300', i !== activeIndex);
         });
       }

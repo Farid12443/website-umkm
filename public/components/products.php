@@ -2,19 +2,17 @@
 
 include "../config/connection.php";
 
-// Ambil semua produk dari database
 $query = "SELECT * FROM produk WHERE status = 'active' ORDER BY created_at DESC";
 
 $result = mysqli_query($conn, $query);
 
-// ubah jadi array assosiatif
 $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 ?>
 
 <section class="max-w-7xl mx-auto" id="products-section">
     <div class="flex flex-col justify-between px-6 py-8 md:px-32 rounded-2xl">
-        <!-- Header -->
+        
         <div class="flex flex-col justify-between items-center gap-6 max-w-[600px] mx-auto text-center py-12">
             <h1 class="text-4xl md:text-5xl font-bold text-black">
                 Lihat Produk Kami
@@ -24,9 +22,7 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
             </p>
         </div>
 
-        <!-- Filter & Search -->
         <div class="flex flex-col-reverse gap-4 md:flex-row md:items-center md:justify-between">
-            <!-- Filter Buttons -->
             <div class="flex flex-wrap gap-3 justify-center md:justify-start">
                 <button data-category="Semua" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-[#FFB200] shadow-lg">Semua produk</button>
                 <button data-category="Premium" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-[#FFB200] hover:shadow-lg">Premium</button>
@@ -34,7 +30,6 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 <button data-category="Murah" class="px-6 py-2 rounded-full border border-gray-300 text-white bg-[#FFB200] hover:shadow-lg">Murah</button>
             </div>
 
-            <!-- Search Bar -->
             <div class="flex items-center w-full md:max-w-md border border-gray-300 rounded-full overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-green-400 transition">
                 <input
                     type="text"
@@ -46,7 +41,6 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
             </div>
         </div>
 
-        <!-- Produk List -->
         <?php if (count($products) > 0): ?>
             <div class="flex overflow-x-auto space-x-6 snap-x snap-mandatory scrollbar-hide sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-8 sm:space-x-0 py-8">
                 <?php foreach ($products as $item): ?>
@@ -107,9 +101,16 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
         const searchButton = document.querySelector('button i.fa-magnifying-glass').parentElement;
         const productSection = document.getElementById("products-section");
 
+       
+        if (products.length === 0) {
+            emptyMessage.style.display = "none";
+            return;
+        }
+
+
         let currentCategory = "Semua";
 
-        //  Buat elemen pesan kosong (disembunyikan dulu)
+        //  Pesan produk tidak ditemukan
         const emptyMessage = document.createElement("div");
         emptyMessage.className = "w-full flex  flex-col justify-center items-center text-center py-20";
         emptyMessage.innerHTML = `
@@ -119,17 +120,14 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
         emptyMessage.style.display = "none";
         productSection.appendChild(emptyMessage);
 
-        //  Fungsi filter
         function filterProducts(category, searchTerm = "") {
             currentCategory = category;
             let visibleCount = 0;
 
-            // Ubah tombol aktif
             buttons.forEach(b => b.classList.remove("bg-[#FFB200]", "text-white"));
             const activeButton = Array.from(buttons).find(b => b.dataset.category === category);
             if (activeButton) activeButton.classList.add("bg-[#FFB200]", "text-white");
 
-            // Filter produk
             products.forEach(product => {
                 const productCategory = product.dataset.category.toLowerCase();
                 const productName = product.querySelector("h1").textContent.toLowerCase();
@@ -145,26 +143,21 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 }
             });
 
-            // Tampilkan atau sembunyikan pesan "tidak ditemukan"
             emptyMessage.style.display = visibleCount === 0 ? "flex" : "none";
         }
 
-        //  Jalankan saat pertama kali dibuka
         filterProducts("Semua");
 
-        // Event tombol kategori
         buttons.forEach(btn => {
             btn.addEventListener("click", () => {
                 filterProducts(btn.dataset.category, searchInput.value);
             });
         });
 
-        // Event search
         searchButton.addEventListener("click", () => {
             filterProducts(currentCategory, searchInput.value);
         });
 
-        //  Event input (real-time search)
         searchInput.addEventListener("input", () => {
             filterProducts(currentCategory, searchInput.value);
         });
