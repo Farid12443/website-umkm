@@ -11,10 +11,10 @@ if (!isset($_SESSION['user_id'])) {
 $id_user = $_SESSION['user_id'];
 
 // hapus foto
-$getFoto = mysqli_query($conn, "SELECT foto FROM user WHERE id_user = '$id_user'");
+$getFoto = mysqli_query($conn, "SELECT foto_profil FROM user WHERE id_user = '$id_user'");
 if ($getFoto && mysqli_num_rows($getFoto) > 0) {
     $data = mysqli_fetch_assoc($getFoto);
-    $foto = $data['foto'];
+    $foto = $data['foto_profil'];
 
     if (!empty($foto) && $foto !== 'default.jpg') {
         $path = "../uploads/" . $foto;

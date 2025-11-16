@@ -87,12 +87,12 @@ if (isset($_POST['submit'])) {
 
                         <div>
                             <label class="block text-gray-700 font-medium mb-1">Kata Sandi</label>
-                            <div class="flex items-center border-b-2 border-gray-300 focus-within:border-green-500">
-                                <input type="password" name="password" class="w-full py-2 outline-none text-sm" placeholder="Masukkan kata sandi" required>
-                                <button type="button" class="text-gray-400 hover:text-gray-600 p-1">
-                                    <i class="fa fa-eye-slash"></i>
-                                </button>
-                            </div>
+                              <div class="flex items-center border-b-2 border-gray-300 focus-within:border-green-500 relative">
+                                    <input type="password" id="password" name="password" class="w-full py-2 outline-none text-sm">
+                                    <button type="button" onclick="togglePassword('password')" class="absolute right-4 text-gray-400 hover:text-gray-600">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
                         </div>
 
                         <div class="flex justify-between items-center text-sm mt-2">
@@ -116,6 +116,23 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
     </section>
+
+      <script>
+        function togglePassword(id) {
+        const input = document.getElementById(id);
+        const icon = input.parentElement.querySelector("button i");
+
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.replace("fa-eye", "fa-eye-slash");
+        } else {
+            input.type = "password";
+            icon.classList.replace("fa-eye-slash", "fa-eye");
+        }
+    }
+
+
+        </script>
 </body>
 
 </html>
