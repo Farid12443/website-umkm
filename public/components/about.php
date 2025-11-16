@@ -85,13 +85,11 @@
             "testimonial"
         ];
 
-        // Sembunyikan semua section
         sectionIds.forEach(id => {
             const el = document.getElementById(id);
             if (el) el.style.display = "none";
         });
 
-        // Tampilkan full about
         const aboutFull = document.getElementById("full-about-section");
         if (aboutFull) {
             aboutFull.style.display = "block";

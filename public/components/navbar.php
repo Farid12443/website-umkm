@@ -127,9 +127,8 @@ $total_item = $cart['total'] ?? 0;
     const overlay = document.getElementById('overlay');
     const menuIcon = menuBtn.querySelector('.menu-icon');
     const closeIcon = menuBtn.querySelector('.close-icon');
-    const menuLinks = mobileMenu.querySelectorAll('a'); // ambil semua link di dalam menu
+    const menuLinks = mobileMenu.querySelectorAll('a'); 
 
-    // Fungsi umum untuk menutup menu
     function closeMenu() {
         mobileMenu.classList.add('-translate-x-full');
         overlay.classList.add('hidden');
@@ -138,7 +137,6 @@ $total_item = $cart['total'] ?? 0;
         closeIcon.classList.add('hidden');
     }
 
-    // Buka/tutup lewat tombol hamburger
     menuBtn.addEventListener('click', () => {
         const isOpen = !mobileMenu.classList.contains('-translate-x-full');
 
@@ -153,13 +151,10 @@ $total_item = $cart['total'] ?? 0;
         }
     });
 
-    // Tutup lewat tombol X
     closeMenuBtn.addEventListener('click', closeMenu);
 
-    // Tutup lewat overlay
     overlay.addEventListener('click', closeMenu);
 
-    // Tutup otomatis saat klik link di menu
     menuLinks.forEach(link => {
         link.addEventListener('click', closeMenu);
     });

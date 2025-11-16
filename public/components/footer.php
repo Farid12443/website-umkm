@@ -1,10 +1,9 @@
 <section class="max-w-7xl mx-auto bg-amber-800 text-white">
   <div class="flex flex-col items-center justify-between px-8 py-8 md:px-32 rounded-2xl gap-8 md:gap-0">
 
-    <!-- Main content with border bottom -->
-    <div class="flex flex-col md:flex-row w-full border-b border-amber-600 pb-6 md:pb-0 md:pr-8">
+    <div class="flex flex-col md:flex-row w-full border-b border-amber-600 pb-6 md:pb-8 md:pr-8">
 
-      <!-- Company info -->
+      <!-- info -->
       <div class="flex-1 mb-6 md:mb-0">
         <h1 class="text-2xl font-bold mb-2">Saestu Eco</h1>
         <p class="text-sm mb-4 opacity-90">
@@ -28,7 +27,7 @@
         </div>
       </div>
 
-      <!-- Navigation columns -->
+      <!-- navigasi -->
       <div class="flex flex-col pb-8 md:flex-row gap-6 md:gap-10 md:ml-8">
 
         <div class="flex-1">
@@ -64,7 +63,7 @@
       </div>
     </div>
 
-    <!-- Copyright -->
+    <!-- copyright -->
     <div class="w-full text-center md:mt-8 md:text-right pt-4 md:pt-0 md:w-auto">
       <p class="text-sm opacity-75">&copy; 2025 Saestu Eco. Semua hak dilindungi.</p>
     </div>

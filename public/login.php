@@ -65,8 +65,6 @@ if (isset($_POST['submit'])) {
 <body class="font-[roboto]">
     <section class="max-w-7xl mx-auto">
         <div class="flex flex-col-reverse lg:flex-row justify-between items-center px-4 py-8 sm:px-8 md:px-16 lg:px-24 rounded-2xl">
-
-            <!-- BAGIAN GAMBAR -->
             <div class="w-full lg:w-1/2 flex items-center justify-center p-6 lg:p-10 bg-white order-2 lg:order-1 min-h-[400px] lg:min-h-[600px]">
                 <div class="relative w-full max-w-sm md:max-w-md lg:max-w-lg flex items-center justify-center">
                     <img
@@ -76,7 +74,6 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
 
-            <!-- BAGIAN FORM -->
             <div class="w-full lg:w-1/2 flex flex-col justify-center px-4 sm:px-8 md:px-12 lg:px-16 py-6 order-1 lg:order-2 min-h-[400px] lg:min-h-[600px]">
                 <div class="no-scrollbar max-w-sm mx-auto w-full bg-white p-6 rounded-2xl md:overflow-y-auto md:max-h-[500px]">
                     <h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">Masuk ke Akun Anda</h2>

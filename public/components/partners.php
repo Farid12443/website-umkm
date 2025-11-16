@@ -8,27 +8,6 @@
    </div>
 </section>
 
-<!-- <style>
-    #marquee-wrapper {
-      width: 100%;
-      overflow: hidden;
-   } 
-
-   #marquee {
-      display: flex;
-      gap: 2rem;
-      white-space: nowrap;
-      will-change: transform;
-      transform: translate3d(0, 0, 0);
-      backface-visibility: hidden;
-   }  *
-
-    #marquee img {
-      user-select: none;
-      pointer-events: none;
-   } 
-</style> -->
-
 <script>
    const marquee = document.getElementById("marquee");
    const wrapper = document.getElementById("marquee-wrapper");

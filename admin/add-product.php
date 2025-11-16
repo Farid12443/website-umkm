@@ -2,7 +2,7 @@
 include "../config/connection.php";
 session_start();
 
-// Proteksi halaman untuk admin
+//pastikan admin login
 if (!isset($_SESSION['admin_id'])) {
     header("Location: login.php");
     exit;
@@ -10,7 +10,6 @@ if (!isset($_SESSION['admin_id'])) {
 
 $success = '';
 $error = '';
-
 
 $uploadDir = '../uploads/';
 
@@ -20,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stok = (int)($_POST['stok'] ?? 0);
     $kategori = trim($_POST['kategori'] ?? '');
 
-    // Upload file foto
+    // upload file foto
     $foto = null;
     if (!empty($_FILES['foto']['name'])) {
         $tmpName = $_FILES['foto']['tmp_name'];

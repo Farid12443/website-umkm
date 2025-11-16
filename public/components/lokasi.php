@@ -1,16 +1,16 @@
  <div class="bg-[#DBDBDB]">
      <div class="py-16 px-8 md:px-32 rounded-2xl">
-         <!-- Judul -->
+         <!-- judl -->
          <div class="text-start mb-16">
              <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-4 leading-tight">Lokasi & Kontak</h2>
          </div>
 
-         <!-- Grid Utama -->
          <div class="grid md:grid-cols-2 gap-10 items-stretch">
-             <!-- Info Kontak -->
-             <div
+             
+         <!-- info -->
+                <div
                  class="md:order-2 order-1 bg-white rounded-2xl shadow-lg p-6 md:p-8 space-y-6 h-full flex flex-col justify-between">
-                 <!-- Alamat -->
+
                  <div class="flex items-start space-x-4">
                      <div
                          class="flex-shrink-0 mt-1 p-3 bg-blue-100 rounded-lg text-blue-600">
@@ -24,14 +24,13 @@
                      </div>
                  </div>
 
-                 <!-- Kontak -->
                  <div class="flex-grow">
                      <h3
                          class="text-2xl font-semibold text-gray-900 mb-4 flex items-center">
                          <i class="fa-solid fa-address-book mr-2 text-green-600"></i> Kontak
                      </h3>
                      <ul class="space-y-3">
-                         <!-- Telepon -->
+            
                          <li
                              class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 hover:shadow-md transition-all duration-200 group">
                              <div
@@ -45,7 +44,6 @@
                              </a>
                          </li>
 
-                         <!-- Email -->
                          <li
                              class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 hover:shadow-md transition-all duration-200 group">
                              <div
@@ -59,7 +57,6 @@
                              </a>
                          </li>
 
-                         <!-- Instagram -->
                          <li
                              class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 hover:shadow-md transition-all duration-200 group">
                              <div

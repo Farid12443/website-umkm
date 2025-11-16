@@ -103,7 +103,7 @@ $result = mysqli_query($conn, $query);
                 <h2 class="text-lg sm:text-xl font-semibold text-gray-700 mb-2">Keranjangmu masih kosong</h2>
                 <p class="text-gray-500 mb-6 text-sm sm:text-base">Yuk, tambahkan produk favoritmu ke keranjang sekarang!</p>
                 <a href="./index.php#products-section"
-                    class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition">
+                    class="px-5 py-2.5 bg-[#FFB200] hover:bg-[#c9961e] text-white font-semibold rounded-lg transition">
                     Belanja Sekarang
                 </a>
             </div>
@@ -175,7 +175,7 @@ $result = mysqli_query($conn, $query);
                             <span id="total-bayar">Rp <?php echo number_format($total + 15000, 0, ',', '.'); ?></span>
                         </div>
                     </div>
-                    <button id="checkoutBtn" class="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition">
+                    <button id="checkoutBtn" class="w-full py-3 bg-[#FFB200] hover:bg-[#c28f19] text-white font-semibold rounded-lg transition">
                         Checkout Sekarang
                     </button>
                 </div>
@@ -251,7 +251,7 @@ $result = mysqli_query($conn, $query);
                                     Batal
                                 </button>
                                 <button type="submit" id="confirmCheckout"
-                                    class="px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition">
+                                    class="px-4 py-2 bg-[#FFB200] text-white font-medium rounded-lg hover:bg-[#c09021] transition">
                                     Konfirmasi
                                 </button>
                             </div>
@@ -281,7 +281,7 @@ $result = mysqli_query($conn, $query);
                         <audio id="successSound" src="https://www.myinstants.com/media/sounds/para-sesi-efekti_PaUswM1.mp3" preload="auto"></audio>
                         <h2 class="text-2xl font-bold text-gray-800 mb-2">Pesanan Anda Telah Siap!</h2>
                         <p class="text-gray-600 mb-6">Terima kasih telah berbelanja. Pesanan Anda akan segera diproses.</p>
-                        <button id="closeSuccessModal" class="px-5 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition">
+                        <button id="closeSuccessModal" class="px-5 py-2 bg-red-700 hover:bg-red-900 text-white font-semibold rounded-lg transition">
                             Tutup
                         </button> 
                     </div> 

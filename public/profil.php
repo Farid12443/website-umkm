@@ -69,7 +69,7 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
     <section class="max-w-7xl mx-auto bg-gray-50">
         <div class="flex flex-col lg:flex-row min-h-screen">
 
-            <!-- Sidebar -->
+            <!-- sidebar -->
             <aside class="w-full md:h-screen lg:w-1/4 bg-gray-50 border-r border-gray-200 p-6">
                 <button
                     onclick="window.location.href='index.php'"
@@ -81,14 +81,14 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
                 <ul class="space-y-3">
                     <li>
                         <button id="btn-account-info"
-                            class="w-full text-left px-5 py-3 rounded-xl bg-green-600 text-white font-medium flex items-center space-x-3 shadow hover:shadow-md transition"
+                            class="w-full text-left px-5 py-3 rounded-xl bg-[#FFB200] text-white font-medium flex items-center space-x-3 shadow hover:shadow-md transition"
                             onclick="switchSection('account-info', this)">
                             <i class="fa-solid fa-user text-lg"></i><span>Account Info</span>
                         </button>
                     </li>
                     <li>
                         <button id="btn-pengaturan-akun"
-                            class="w-full text-left px-5 py-3 rounded-xl bg-white border border-gray-300 text-gray-700 font-medium flex items-center space-x-3 hover:bg-gray-100 transition"
+                            class="w-full text-left px-5 py-3 rounded-xl bg-white border border-gray-300 text-gray-700 font-medium flex items-center space-x-3 hover:transition"
                             onclick="switchSection('pengaturan-akun', this)">
                             <i class="fa-solid fa-user-gear text-lg"></i><span>Pengaturan Akun</span>
                         </button>
@@ -96,13 +96,13 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
                 </ul>
             </aside>
 
-            <!-- Main Content -->
+            <!-- main Content -->
             <main id="content-area" class="flex-1 p-8 bg-white overflow-y-auto h-screen">
                 <div id="account-info" class="fade-in">
                     <h3 class="text-2xl font-bold mb-4 text-gray-800">Informasi Akun</h3>
                     <p class="text-gray-600 mb-6">Lihat dan lihat riwayat transaksi anda.</p>
 
-                    <!-- Profil -->
+                    <!-- profil -->
                     <div class="flex items-center space-x-5 mb-8 bg-gray-50 p-5 rounded-xl">
                         <img src="../uploads/<?php echo $data['foto_profil'] ?: 'default.jpg'; ?>"
                             alt="Foto Profil" class="w-20 h-20 rounded-full object-cover ring-2 ring-green-300">
@@ -188,16 +188,14 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
 
                 <div id="pengaturan-akun" class="hidden fade-in">
                     <div>
-                        <!-- Header Section -->
                         <div class="mb-8">
                             <h3 class="text-2xl font-bold mb-4 text-gray-800">Pengaturan Akun</h3>
                             <p class="text-gray-600">Kelola informasi profil, keamanan, dan preferensi akun Anda dengan aman dan efisien.</p>
                         </div>
 
-                        <!-- Profile Section -->
                         <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6 mb-8">
                             <h4 class="text-xl font-semibold mb-4 text-gray-900 flex items-center space-x-2">
-                                <i class="fa-solid fa-user text-green-600"></i>
+                                <i class="fa-solid fa-user text-[#FFB200]"></i>
                                 <span>Informasi Profil</span>
                             </h4>
                             <div class="flex items-center space-x-6">
@@ -205,7 +203,7 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
                                     <img src="../uploads/<?php echo $data['foto_profil'] ?: 'default.png'; ?>"
                                         alt="Foto Profil" class="w-24 h-24 rounded-full object-cover ring-2 ring-green-500/20">
                                     <button onclick="changeProfilePhoto()"
-                                        class="absolute bottom-0 right-0 bg-green-600 text-white w-10 h-10 rounded-full shadow-sm hover:bg-green-700 transition flex items-center justify-center">
+                                        class="absolute bottom-0 right-0 bg-[#FFB200] text-white w-10 h-10 rounded-full shadow-sm hover:bg-green-700 transition flex items-center justify-center">
                                         <i class="fa-solid fa-camera text-sm"></i>
                                     </button>
                                 </div>
@@ -221,12 +219,12 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
                                 </div>
                             </div>
 
-                            <!-- Modal Ubah Foto -->
+                            <!-- modal ubah foto -->
                             <div id="modalFoto" class="fixed inset-0 bg-black/50 bg-opacity-50 hidden items-center justify-center z-50 p-4">
                                 <div class="bg-white rounded-xl shadow-2xl w-full max-w-md">
                                     <div class="p-6">
                                         <h4 class="text-lg font-semibold mb-4 text-gray-900 flex items-center space-x-2">
-                                            <i class="fa-solid fa-camera text-green-600"></i>
+                                            <i class="fa-solid fa-camera text-[#FFB200]"></i>
                                             <span>Ubah Foto Profil</span>
                                         </h4>
                                         <form action="../actions/update_foto.php" method="POST" enctype="multipart/form-data" class="space-y-4">
@@ -250,12 +248,11 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
                             </div>
                         </div>
 
-                        <!-- Form Utama (Wrapped in Form for Submission) -->
                         <form id="accountForm" action="../actions/update_account.php" method="POST" class="space-y-8">
-                            <!-- Nama Section -->
+        
                             <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
                                 <h4 class="text-xl font-semibold mb-4 text-gray-900 flex items-center space-x-2">
-                                    <i class="fa-solid fa-id-card text-green-600"></i>
+                                    <i class="fa-solid fa-id-card text-[#FFB200]"></i>
                                     <span>Nama Lengkap</span>
                                 </h4>
                                 <div class="relative">
@@ -266,10 +263,10 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
                                 <p class="mt-1 text-sm text-gray-500">Gunakan nama asli untuk verifikasi identitas.</p>
                             </div>
 
-                            <!-- Email Section -->
+
                             <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
                                 <h4 class="text-xl font-semibold mb-4 text-gray-900 flex items-center space-x-2">
-                                    <i class="fa-solid fa-envelope text-green-600"></i>
+                                    <i class="fa-solid fa-envelope text-[#FFB200]"></i>
                                     <span>Email</span>
                                 </h4>
                                 <div class="relative">
@@ -279,10 +276,9 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
                                 </div>
                             </div>
 
-                            <!-- Alamat Section -->
                             <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
                                 <h4 class="text-xl font-semibold mb-4 text-gray-900 flex items-center space-x-2">
-                                    <i class="fa-solid fa-map-location-dot text-green-600"></i>
+                                    <i class="fa-solid fa-map-location-dot text-[#FFB200]"></i>
                                     <span>Alamat</span>
                                 </h4>
                                 <div class="relative">
@@ -292,10 +288,9 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
                                 </div>
                             </div>
 
-                            <!-- Password Section -->
                             <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
                                 <h4 class="text-xl font-semibold mb-4 text-gray-900 flex items-center space-x-2">
-                                    <i class="fa-solid fa-lock text-green-600"></i>
+                                    <i class="fa-solid fa-lock text-[#FFB200]"></i>
                                     <span>Keamanan Kata Sandi</span>
                                 </h4>
                                 <div class="space-y-4">
@@ -327,16 +322,14 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
                                 <p class="mt-2 text-sm text-gray-500">Kata sandi harus mengandung huruf besar, kecil, angka, dan simbol untuk keamanan optimal.</p>
                             </div>
 
-                            <!-- Tombol Simpan -->
                             <div class="flex justify-end">
-                                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded-lg transition flex items-center space-x-2 shadow-md">
+                                <button type="submit" class="bg-[#FFB200] hover:bg-[#daa01a] text-white font-semibold px-8 py-3 rounded-lg transition flex items-center space-x-2 shadow-md">
                                     <i class="fa-solid fa-save"></i>
                                     <span>Simpan Perubahan</span>
                                 </button>
                             </div>
                         </form>
 
-                        <!-- Account Actions Section -->
                         <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6 mt-8">
                             <h4 class="text-xl font-semibold mb-4 text-gray-900 flex items-center space-x-2">
                                 <i class="fa-solid fa-cog text-green-600"></i>
@@ -355,7 +348,7 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
                             <p class="mt-3 text-sm text-gray-500">Hapus akun akan menghapus semua data secara permanen. Pastikan Anda telah membackup informasi penting.</p>
                         </div>
 
-                        <!-- Modal Konfirmasi logout Akun -->
+                        <!-- modal logot -->
                         <div id="modalLogout" class="fixed inset-0  bg-black/50 bg-opacity-50 items-center justify-center z-50 p-4 hidden ">
                             <div class="bg-white rounded-xl shadow-2xl w-full max-w-md">
                                 <div class="p-6">
@@ -372,7 +365,7 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
                             </div>
                         </div>
 
-                        <!-- Modal Konfirmasi Hapus Akun -->
+                        <!-- modal haps -->
                         <div id="modalHapus" class="fixed inset-0 bg-black/50 bg-opacity-50 items-center justify-center z-50 p-4 hidden ">
                             <div class="bg-white rounded-xl shadow-2xl w-full max-w-md">
                                 <div class="p-6">
@@ -421,7 +414,7 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
             });
 
             btn.classList.remove("bg-white", "text-gray-700", "border", "border-gray-300");
-            btn.classList.add("bg-green-600", "text-white", "shadow");
+            btn.classList.add("bg-[#FFB200]", "text-white", "shadow");
         }
 
         function changeProfilePhoto() {

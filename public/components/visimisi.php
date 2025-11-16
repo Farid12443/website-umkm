@@ -1,4 +1,4 @@
- <div class="px-8 py-8 md:px-32 rounded-2xl">
+ <div class="px-8 py-8 md:px-32 rounded-2xl" id="visimisi">
      <div class="text-start mb-16">
          <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-4 leading-tight">Visi & Misi</h2>
      </div>
@@ -12,7 +12,7 @@
                          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                          </svg>
-                     </div>
+                     </div> 
                      <h3 class="text-3xl font-bold text-gray-800">Visi</h3>
                  </div>
                  <p class="text-gray-700 leading-relaxed text-lg flex-grow"> <!-- Tambah flex-grow agar paragraf mengisi ruang -->

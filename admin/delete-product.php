@@ -2,20 +2,18 @@
 include "../config/connection.php";
 session_start();
 
-// Proteksi halaman hanya untuk admin
 if (!isset($_SESSION['admin_id'])) {
     header("Location: login.php");
     exit;
 }
 
-// Ambil ID produk dari URL
 $idProduct = $_GET['id'] ?? 0;
 
 if ($idProduct <= 0) {
     die("ID produk tidak valid!");
 }
 
-// Soft delete: ubah status menjadi 'inactive'
+// nonaktifkan
 $stmt = $conn->prepare("UPDATE produk SET status = 'inactive' WHERE id_produk = ?");
 $stmt->bind_param("i", $idProduct);
 

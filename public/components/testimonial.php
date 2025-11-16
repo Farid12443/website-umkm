@@ -23,7 +23,7 @@ $result_testimoni = mysqli_query($conn, $query);
   <div class="flex flex-col gap-12 bg-[#F5F2E7] md:grid grid-cols-5 md:items-center justify-between px-8 pt-18 md:pb-12 md:px-32 rounded-2xl">
     <!-- kanan -->
     <div class="col-span-2">
-      <p class="text-green-600 font-semibold text-lg">Testimoni Pelanggan</p>
+      <p class="text-[#FFB200] font-semibold text-lg">Testimoni Pelanggan</p>
       <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
         Apa Kata <br/>
         <span class="text-[#FFB200]">Pelanggan Kami</span>
@@ -37,7 +37,8 @@ $result_testimoni = mysqli_query($conn, $query);
         <?php echo !$isLoggedIn ? 'disabled' : ''; ?>>
         Tambah Testimoni
       </button>
-      <!-- Modal -->
+
+      <!-- modal -->
       <div id="modalTestimoni"
         class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-lg relative mx-auto">
@@ -45,7 +46,6 @@ $result_testimoni = mysqli_query($conn, $query);
 
           <form id="formTestimoni" method="POST" action="../actions/simpan_testimoni.php" class="space-y-4">
             <input type="hidden" name="id_user" value="<?php echo $_SESSION['user_id']; ?>">
-            <!-- Rating -->
             <div class="flex items-center gap-1">
               <label class="text-gray-700 font-medium">Rating:</label>
               <div id="stars" class="flex text-yellow-400 text-xl cursor-pointer">
@@ -58,14 +58,12 @@ $result_testimoni = mysqli_query($conn, $query);
               <input type="hidden" name="rating" id="ratingValue" value="0">
             </div>
 
-            <!-- Pesan -->
             <div>
               <label for="pesan" class="block text-gray-700 font-medium mb-1">Pesan</label>
               <textarea name="pesan" id="pesan" rows="4" required
                 class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-green-500 outline-none"></textarea>
             </div>
 
-            <!-- Tombol aksi -->
             <div class="flex justify-end gap-2 mt-4">
               <button type="button" id="tutupModal" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Batal</button>
               <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Kirim</button>
@@ -75,9 +73,7 @@ $result_testimoni = mysqli_query($conn, $query);
       </div>
     </div>
 
-    <!-- kiri -->
     <div class="hidden md:col-span-3 md:flex flex-col gap-6 justify-between">
-      <!-- Container semua testimonial -->
       <div class="relative overflow-hidden">
         <div id="testimonialWrapper" class="flex transition-transform duration-700 ease-in-out">
 
@@ -114,12 +110,8 @@ $result_testimoni = mysqli_query($conn, $query);
 
       </div>
 
-      <!-- Indicator -->
-      <!-- Desktop -->
       <div class="flex gap-2 justify-center desktop-dots" id="desktopDots"></div>
 
-
-      <!-- Tombol navigasi -->
       <div class="flex flex-row gap-4 items-center justify-center">
         <button id="prevBtn" class="w-10 h-10 bg-green-100 hover:bg-green-200 text-[#FFB200] rounded-full flex items-center justify-center transition" aria-label="Previous testimonial">
           <i class="fa-solid fa-chevron-left text-lg"></i>
@@ -130,9 +122,9 @@ $result_testimoni = mysqli_query($conn, $query);
       </div>
     </div>
 
-    <!-- Testimonial Mobile -->
+    <!-- testimonial mobile -->
     <div class="md:hidden w-full flex flex-col items-center py-8">
-      <!-- Container semua testimonial -->
+
       <div class="relative overflow-hidden max-w-sm w-full">
         <div id="testimonialWrapperMobile" class="flex transition-transform duration-700 ease-in-out">
           <?php mysqli_data_seek($result_testimoni, 0); // reset pointer 
@@ -168,11 +160,8 @@ $result_testimoni = mysqli_query($conn, $query);
 
       </div>
 
-      <!-- Indicator -->
-      <!-- Mobile -->
       <div class="flex gap-2 pt-4 justify-center mobile-dots" id="mobileDots"></div>
 
-      <!-- Tombol navigasi -->
       <div class="flex gap-4 mt-4">
         <button id="prevBtnMobile" class="w-10 h-10 bg-green-100 hover:bg-green-200 text-[#FFB200] rounded-full flex items-center justify-center transition">
           <i class="fa-solid fa-chevron-left text-lg"></i>
@@ -189,7 +178,7 @@ $result_testimoni = mysqli_query($conn, $query);
 <!-- Script Carousel -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Fungsi untuk inisialisasi carousel
+    // fungsi carousel
     function initCarousel(wrapperId, dotsContainerId, prevBtnId, nextBtnId) {
       const wrapper = document.getElementById(wrapperId);
       const dotsContainer = document.getElementById(dotsContainerId);
@@ -201,7 +190,7 @@ $result_testimoni = mysqli_query($conn, $query);
       const originalSlides = Array.from(wrapper.children);
       const originalSlidesLength = originalSlides.length;
 
-      // clone untuk looping
+      // looping
       const firstClone = originalSlides[0].cloneNode(true);
       const lastClone = originalSlides[originalSlidesLength - 1].cloneNode(true);
       wrapper.appendChild(firstClone);
@@ -212,7 +201,7 @@ $result_testimoni = mysqli_query($conn, $query);
       let isTransitioning = false;
       let autoSlideInterval;
 
-      // buat dot dinamis
+      // buat dot
       const dotsArray = [];
       dotsContainer.innerHTML = '';
       for (let i = 0; i < originalSlidesLength; i++) {
@@ -225,17 +214,17 @@ $result_testimoni = mysqli_query($conn, $query);
 
       function updateDotsWindow() {
         const total = dotsArray.length;
-        let activeIndex = (index - 1 + total) % total; // index slide asli
+        let activeIndex = (index - 1 + total) % total;
 
         const windowSize = 3;
         let start, end;
 
         if (total <= windowSize) {
-          // Kalau dot total <= window, tampilkan semua
+
           start = 0;
           end = total - 1;
         } else {
-          // Geser window berdasarkan slide aktif
+
           if (activeIndex < 1) {
             start = 0;
             end = windowSize - 1;
@@ -249,17 +238,13 @@ $result_testimoni = mysqli_query($conn, $query);
         }
 
         dotsArray.forEach((dot, i) => {
-          // tampilkan hanya dot di window
+  
           dot.style.display = (i >= start && i <= end) ? 'inline-block' : 'none';
 
-          // update dot aktif
           dot.classList.toggle('bg-[#FFB200]', i === activeIndex);
           dot.classList.toggle('bg-gray-300', i !== activeIndex);
         });
       }
-
-
-
 
       function showSlide(i) {
         if (isTransitioning) return;
@@ -304,17 +289,12 @@ $result_testimoni = mysqli_query($conn, $query);
       return getComputedStyle(element).display !== 'none';
     }
 
-    // Inisialisasi untuk desktop
     const desktopWrapper = document.getElementById("testimonialWrapper");
     if (desktopWrapper && isVisible(desktopWrapper)) {
       initCarousel("testimonialWrapper", "desktopDots", "prevBtn", "nextBtn");
 
     }
 
-
-
-
-    // Inisialisasi untuk mobile
     const mobileWrapper = document.getElementById("testimonialWrapperMobile");
     if (mobileWrapper && isVisible(mobileWrapper)) {
       initCarousel("testimonialWrapperMobile", "mobileDots", "prevBtnMobile", "nextBtnMobile");
@@ -326,16 +306,15 @@ $result_testimoni = mysqli_query($conn, $query);
   const closeModal = document.getElementById('tutupModal');
 
   <?php if ($isLoggedIn): ?>
-    // Jika sudah login, tombol bisa buka modal
     btn.addEventListener('click', () => modal.classList.remove('hidden'));
   <?php else: ?>
-    // Jika belum login, tombol muncul alert
+
     btn.addEventListener('click', () => alert('Silakan login terlebih dahulu untuk menambahkan testimoni.'));
   <?php endif; ?>
 
   closeModal.addEventListener('click', () => modal.classList.add('hidden'));
 
-  // Rating bintang interaktif
+  // rating
   const stars = document.querySelectorAll('#stars i');
   const ratingValue = document.getElementById('ratingValue');
 

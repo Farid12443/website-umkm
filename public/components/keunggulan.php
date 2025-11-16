@@ -5,7 +5,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-            <!-- Card 1 -->
+            
             <div class="flex flex-col items-center text-center p-8 bg-white shadow-md rounded-2xl hover:shadow-lg hover:-translate-y-2 transition-all duration-300">
                 <div class="text-green-600 text-5xl mb-4">
                     <i class="fa-solid fa-leaf"></i>
@@ -16,7 +16,6 @@
                 </p>
             </div>
 
-            <!-- Card 2 -->
             <div class="flex flex-col items-center text-center p-8 bg-white shadow-md rounded-2xl hover:shadow-lg hover:-translate-y-2 transition-all duration-300">
                 <div class="text-blue-600 text-5xl mb-4">
                     <i class="fa-solid fa-handshake"></i>
@@ -27,7 +26,6 @@
                 </p>
             </div>
 
-            <!-- Card 3 -->
             <div class="flex flex-col items-center text-center p-8 bg-white shadow-md rounded-2xl hover:shadow-lg hover:-translate-y-2 transition-all duration-300">
                 <div class="text-yellow-500 text-5xl mb-4">
                     <i class="fa-solid fa-truck-fast"></i>

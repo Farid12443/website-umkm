@@ -2,7 +2,6 @@
 include "../config/connection.php";
 session_start();
 
-// Proteksi halaman hanya untuk admin
 if (!isset($_SESSION['admin_id'])) {
     header("Location: login.php");
     exit;
@@ -17,13 +16,12 @@ $stmt->execute();
 $admin = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
-// Hitung total produk (hanya yang aktif)
+// itung total produk 
 $stmt = $conn->prepare("SELECT COUNT(id_produk) as total FROM produk WHERE status='active'");
 $stmt->execute();
 $totalProduk = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
-// Ambil semua produk aktif
 $stmt = $conn->prepare("SELECT * FROM produk WHERE status='active' ORDER BY created_at DESC");
 $stmt->execute();
 $products = $stmt->get_result();
@@ -51,7 +49,7 @@ $stmt->close();
 
 <body class="bg-gray-50">
 
-    <!-- Navbar -->
+    <!-- navbar -->
     <nav class="bg-blue-600 text-white shadow-lg fixed w-full z-10">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <h1 class="text-2xl font-bold">Dashboard Admin</h1>
@@ -63,7 +61,7 @@ $stmt->close();
     </nav>
 
     <div class="max-w-7xl px-4 py-8 mx-32 pt-28">
-        <!-- Stats -->
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div class="bg-white rounded-lg shadow p-6">
                 <h3 class="text-gray-600 text-sm font-medium">Total Produk</h3>
@@ -95,7 +93,7 @@ $stmt->close();
                 </p>
             </div>
         </div>
-        <!-- Produk Section -->
+
         <div class="bg-white rounded-lg shadow">
             <div class="p-6 border-b border-gray-200 flex justify-between items-center">
                 <h2 class="text-2xl font-bold text-gray-900">Daftar Produk</h2>

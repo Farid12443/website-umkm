@@ -12,7 +12,7 @@ $success = '';
 
 $idProduct = $_GET['id'] ?? 0;
 
-// Ambil data produk
+// jikuk produk
 $stmt = $conn->prepare("SELECT * FROM produk WHERE id_produk = ?");
 $stmt->bind_param("i", $idProduct);
 $stmt->execute();
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stok = (int)($_POST['stok'] ?? 0);
     $kategori = trim($_POST['kategori'] ?? '');
 
-    // Upload foto jika ada
+    // uplod foto
     $foto = $product['foto'];
     if (!empty($_FILES['foto']['name'])) {
         $uploadDir = '../uploads/';
