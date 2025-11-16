@@ -86,7 +86,7 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <div>
-                            <label class="block text-gray-700 font-medium mb-1">Kata Sandi</label>
+                            <label class="block text-gray-700 font-medium mb-1">Kata Sandi</label>          
                               <div class="flex items-center border-b-2 border-gray-300 focus-within:border-green-500 relative">
                                     <input type="password" id="password" name="password" class="w-full py-2 outline-none text-sm">
                                     <button type="button" onclick="togglePassword('password')" class="absolute right-4 text-gray-400 hover:text-gray-600">

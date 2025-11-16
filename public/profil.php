@@ -257,7 +257,7 @@ $result_transaksi = mysqli_query($conn, $query_transaksi);
                                 </h4>
                                 <div class="relative">
                                     <i class="fa-solid fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                                    <input type="text" name="nama" id="namaLengkap" value="<?php echo htmlspecialchars($data['nama'] ?? ''); ?>" required
+                                    <input type="text" name="nama" id="namaLengkap" value="<?php echo htmlspecialchars($data['nama_lengkap'] ?? ''); ?>" required
                                         class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition" placeholder="Masukkan nama lengkap Anda">
                                 </div>
                                 <p class="mt-1 text-sm text-gray-500">Gunakan nama asli untuk verifikasi identitas.</p>
